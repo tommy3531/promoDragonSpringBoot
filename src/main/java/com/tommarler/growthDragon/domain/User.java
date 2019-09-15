@@ -12,14 +12,14 @@ import java.util.Set;
 public class User {
 
     @Id
-    private String id;
+    public String id;
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
-    private String email;
-    private String password;
-    private String fullname;
-    private boolean enabled;
+    public String email;
+    public String password;
+    public String fullname;
+    public boolean enabled;
     @DBRef
-    private Set<Role> roles;
+    public Set<Role> roles;
 
     public User(String id, String email, String password, String fullname, boolean enabled, Set<Role> roles) {
         this.id = id;
@@ -29,6 +29,8 @@ public class User {
         this.enabled = enabled;
         this.roles = roles;
     }
+
+    public User() {}
 
     public String getId() {
         return id;
