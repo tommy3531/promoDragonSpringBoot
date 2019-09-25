@@ -1,5 +1,6 @@
 package com.tommarler.growthDragon.domain;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -7,14 +8,15 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Document(collection = "user")
 public class User {
 
     @Id
-    public String id;
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+    public ObjectId id;
+//    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     public String email;
     public String password;
     public String fullname;
@@ -22,7 +24,7 @@ public class User {
     @DBRef
     public Set<Role> roles;
 
-    public User(String id, String email, String password, String fullname, boolean enabled, Set<Role> roles) {
+    public User(ObjectId id, String email, String password, String fullname, boolean enabled, Set<Role> roles) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -33,11 +35,11 @@ public class User {
 
     public User() {}
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -80,4 +82,5 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 }

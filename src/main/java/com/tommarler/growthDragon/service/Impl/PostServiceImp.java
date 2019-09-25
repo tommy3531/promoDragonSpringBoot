@@ -15,11 +15,11 @@ public class PostServiceImp implements PostService {
     @Autowired
     public PostRepository postRepository;
 
-    private List<Post> posts = new ArrayList<Post>();
+    public List<Post> posts = new ArrayList<Post>();
 
     @Override
     public List<Post> findAll() {
-        return null;
+        return postRepository.findAll();
     }
 
     @Override
@@ -34,8 +34,8 @@ public class PostServiceImp implements PostService {
 
     @Override
     public Post create(Post post) {
-        post.setId(post.id + 1);
         this.posts.add(post);
+        save(post);
         return post;
     }
 

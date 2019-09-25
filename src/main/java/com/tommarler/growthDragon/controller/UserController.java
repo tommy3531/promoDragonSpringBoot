@@ -1,6 +1,7 @@
 package com.tommarler.growthDragon.controller;
 
 import com.tommarler.growthDragon.domain.User;
+import com.tommarler.growthDragon.service.PostService;
 import com.tommarler.growthDragon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    public PostService postService;
+
     private ModelAndView authService(String viewName){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -34,6 +38,7 @@ public class UserController {
         String newsFeedString = "/user/newsFeed";
         ModelAndView newsFeedView = new ModelAndView();
         newsFeedView = authService(newsFeedString);
+        newsFeedView.addObject("post", postService.findAll());
         return newsFeedView;
     }
 

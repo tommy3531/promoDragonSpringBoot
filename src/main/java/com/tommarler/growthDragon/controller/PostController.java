@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user/post")
@@ -31,6 +34,14 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public ModelAndView allPost(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("post", postService.findAll());
+        modelAndView = authService("/user/newsFeed");
+        return modelAndView;
+    }
+
 
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
     public ModelAndView newPost(Principal principal,
@@ -41,12 +52,11 @@ public class PostController {
         if (user.isEnabled()) {
             Post post = new Post();
             post.setUser(user);
-
-            model.addAttribute("post", post);
-
             String postFormString = "/user/post/postForm";
             ModelAndView postFormView = new ModelAndView();
             postFormView = authService(postFormString);
+
+            postFormView.addObject("post", post);
             return postFormView;
         } else {
             ModelAndView modelAndView = new ModelAndView();
@@ -57,7 +67,7 @@ public class PostController {
 
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)
     public RedirectView createNewPost(@Valid Post post,
-                                      BindingResult bindingResult) {
+                                      BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             return new RedirectView("/user/post/postForm");
