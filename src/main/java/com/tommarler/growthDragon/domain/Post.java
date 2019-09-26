@@ -17,7 +17,6 @@ public class Post {
     public String title;
     public String content;
     public Date createdDate;
-    @DBRef
     private User user;
 
     public Post() {}
