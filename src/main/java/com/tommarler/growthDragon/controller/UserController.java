@@ -42,11 +42,11 @@ public class UserController {
         return newsFeedView;
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView profile() {
-        String profileString = "/user/profile";
-        ModelAndView profileView = new ModelAndView();
-        profileView = authService(profileString);
-        return profileView;
-    }
+//    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+//    public ModelAndView profile() {
+//        String profileString = "/user/profile";
+//        ModelAndView profileView = new ModelAndView();
+//        profileView = authService(profileString);
+//        return profileView;
+//    }
 }

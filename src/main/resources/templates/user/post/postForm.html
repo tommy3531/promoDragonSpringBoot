@@ -24,8 +24,8 @@
                     <div class="form-group">
                         <label th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
                                class="alert alert-danger"></label>
-                        <input type="text" th:field="*{title}" placeholder="Title"
-                               class="form-control input-lg"/>
+                        <input type="text" th:field="*{title}" placeholder="Title" class="form-control input-lg"/>
+                        <p>Message: <input type="text" th:field="*{content}" /></p>
                     </div>
 
 <!--                    <div class="form-group">-->

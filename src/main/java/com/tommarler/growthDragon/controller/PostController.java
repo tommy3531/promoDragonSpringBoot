@@ -5,28 +5,22 @@ import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.service.PostService;
 import com.tommarler.growthDragon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/user/post")
 public class PostController {
-
 
     @Autowired
     private UserService userService;
@@ -44,18 +38,16 @@ public class PostController {
 
 
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
-    public ModelAndView newPost(Principal principal,
-                                           Model model) {
+    public ModelAndView newPost(Principal principal, Model model) {
+        String postFormString = "/user/post/postForm";
+        ModelAndView postFormView;
 
         User user = userService.findUserByEmail(principal.getName());
 
         if (user.isEnabled()) {
             Post post = new Post();
             post.setUser(user);
-            String postFormString = "/user/post/postForm";
-            ModelAndView postFormView = new ModelAndView();
             postFormView = authService(postFormString);
-
             postFormView.addObject("post", post);
             return postFormView;
         } else {
@@ -66,8 +58,7 @@ public class PostController {
     }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)
-    public RedirectView createNewPost(@Valid Post post,
-                                      BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public RedirectView createNewPost(@Valid Post post, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return new RedirectView("/user/post/postForm");

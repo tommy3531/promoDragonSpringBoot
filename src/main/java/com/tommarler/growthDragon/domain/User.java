@@ -16,7 +16,6 @@ public class User {
 
     @Id
     public ObjectId id;
-//    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     public String email;
     public String password;
     public String fullname;

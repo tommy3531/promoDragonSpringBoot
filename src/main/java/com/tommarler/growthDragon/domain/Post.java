@@ -11,19 +11,32 @@ import java.util.Date;
 @Document(collection = "post")
 public class Post {
 
+    @Id
+    private String id;
+
     public String title;
     public String content;
     public Date createdDate;
+    @DBRef
     private User user;
 
     public Post() {}
 
     @PersistenceConstructor
-    public Post(String title, String content, Date createdDate, User user) {
+    public Post(String id, String title, String content, Date createdDate, User user) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
         this.user = user;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
