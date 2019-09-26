@@ -14,8 +14,8 @@
                     <li class="list-group-item">
                         <div class="media">
                             <div class="media-body" th:each="item : ${post}">
-                                <small class="text-muted pull-right" th:text="${item.createdDate}"></small>
                                 <h4 class="media-heading" th:text="${item.user.fullname}"></h4>
+                                <small class="text-muted pull-right" th:text="${item.createdDate}"></small>
                                 <div th:text="${item.content}"></div>
                             </div>
                         </div>

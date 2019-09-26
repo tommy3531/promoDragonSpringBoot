@@ -17,6 +17,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/user/post")
@@ -47,6 +50,8 @@ public class PostController {
         if (user.isEnabled()) {
             Post post = new Post();
             post.setUser(user);
+            String localDate = generateDate();
+            post.setCreatedDate(localDate);
             postFormView = authService(postFormString);
             postFormView.addObject("post", post);
             return postFormView;
@@ -77,6 +82,13 @@ public class PostController {
         modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
         modelAndView.setViewName(viewName);
         return modelAndView;
+    }
+
+    private String generateDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDate = LocalDate.now();
+        String dateStr = dtf.format(localDate);
+        return dateStr;
     }
 
 }

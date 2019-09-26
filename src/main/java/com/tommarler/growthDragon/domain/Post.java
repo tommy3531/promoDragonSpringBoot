@@ -6,6 +6,7 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Document(collection = "post")
@@ -16,13 +17,13 @@ public class Post {
 
     public String title;
     public String content;
-    public Date createdDate;
+    public String createdDate;
     private User user;
 
     public Post() {}
 
     @PersistenceConstructor
-    public Post(String id, String title, String content, Date createdDate, User user) {
+    public Post(String id, String title, String content, String createdDate, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -54,11 +55,11 @@ public class Post {
         this.content = content;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 
