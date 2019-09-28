@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
 <head>
     <title>NewsFeed</title>
 </head>
@@ -25,6 +26,7 @@
                                         <div th:text="${item.content}"></div>
                                     </div>
                                 </div>
+                                <a href="" class="btn btn-info btn-sm pull-right waves-effect waves-light">Comment</a>
                             </li>
                         </ul>
                         <span class="text-info">163K users active</span>
