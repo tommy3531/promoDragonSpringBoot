@@ -3,13 +3,11 @@ package com.tommarler.growthDragon.service;
 import com.tommarler.growthDragon.domain.Post;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PostService {
     List<Post> findAll();
-    List<Post> findLatest5();
-    Post findById(Long id);
     Post create(Post post);
-    Post edit(Post post);
-    void deleteById(Long id);
+    Optional<Post> findForId(String id);
     Post save(Post post);
 }

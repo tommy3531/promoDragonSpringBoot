@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostServiceImp implements PostService {
@@ -23,16 +24,6 @@ public class PostServiceImp implements PostService {
     }
 
     @Override
-    public List<Post> findLatest5() {
-        return null;
-    }
-
-    @Override
-    public Post findById(Long id) {
-        return null;
-    }
-
-    @Override
     public Post create(Post post) {
         this.posts.add(post);
         save(post);
@@ -40,13 +31,8 @@ public class PostServiceImp implements PostService {
     }
 
     @Override
-    public Post edit(Post post) {
-        return null;
-    }
-
-    @Override
-    public void deleteById(Long id) {
-
+    public Optional<Post> findForId(String id) {
+        return postRepository.findById(id);
     }
 
     @Override

@@ -26,7 +26,9 @@
                                         <div th:text="${item.content}"></div>
                                     </div>
                                 </div>
-                                <a href="" class="btn btn-info btn-sm pull-right waves-effect waves-light">Comment</a>
+                                <a th:href="@{'/user/comment/newComment/{id}'(id=${item.id})}" class="col-md-2">
+                                    <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="Comment">Comment</button>
+                                </a>
                             </li>
                         </ul>
                         <span class="text-info">163K users active</span>

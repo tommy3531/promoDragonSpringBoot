@@ -4,9 +4,11 @@ import com.tommarler.growthDragon.domain.Post;
 import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.service.PostService;
 import com.tommarler.growthDragon.service.UserService;
+import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-@RestController
+@Controller
 @RequestMapping("/user/post")
 public class PostController {
 
@@ -39,6 +41,11 @@ public class PostController {
         return modelAndView;
     }
 
+//    @RequestMapping(value = "/like", method = RequestMethod.GET)
+//    public ModelAndView postLike(Principal principal) {
+//        String commentFormString = "/user/post/commentForm";
+//
+//    }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
     public ModelAndView newPost(Principal principal, Model model) {
@@ -83,6 +90,8 @@ public class PostController {
         modelAndView.setViewName(viewName);
         return modelAndView;
     }
+
+
 
     private String generateDate() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
