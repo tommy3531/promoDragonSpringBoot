@@ -1,10 +1,12 @@
 package com.tommarler.growthDragon.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.Optional;
 
+@Document(collection = "comment")
 public class Comment {
 
     @Id
@@ -12,13 +14,13 @@ public class Comment {
     public Optional<Post> post;
     public Date createdDate;
     public User user;
-    public String comment;
+    public String body;
 
-    public Comment(Optional<Post> post, Date createdDate, User user, String comment) {
+    public Comment(Optional<Post> post, Date createdDate, User user, String body) {
         this.post = post;
         this.createdDate = createdDate;
         this.user = user;
-        this.comment = comment;
+        this.body = body;
     }
 
     public Comment() {}
@@ -47,11 +49,11 @@ public class Comment {
         this.user = user;
     }
 
-    public String getComment() {
-        return comment;
+    public String getBody() {
+        return body;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setBody(String comment) {
+        this.body = body;
     }
 }
