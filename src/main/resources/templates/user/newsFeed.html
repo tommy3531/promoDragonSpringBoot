@@ -33,6 +33,28 @@
                         </ul>
                         <span class="text-info">163K users active</span>
                     </div>
+                    <h2>Comments:</h2>
+
+                    <!--Comments-->
+                    <div class="well" th:each="cmt : ${comment}">
+                        <h3 th:text="${cmt.content}">Body</h3>
+<!--                        <div th:text="'Created: ' + ${#dates.format(cmt.createDate, 'dd-MMM-yyyy')} + ' by '">-->
+<!--                            Created by-->
+<!--                        </div>-->
+                        <div><a th:text="${cmt.user.fullname}" th:href="@{'/blog/' + ${cmt.user.fullname}}">User</a>
+                        </div>
+                    </div>
+
+                    <!--Leave a comment button-->
+                    <!--Only if authenticated-->
+<!--                    <div sec:authorize="isAuthenticated()">-->
+<!--                        <div class="row">-->
+<!--                            <a th:href="@{'/commentPost/{id}'(id=${post.id})}" class="col-md-2">-->
+<!--                                <button type="button" class="btn btn-primary btn-block" th:text="Comment">Comment</button>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    </div>
                 </div>
             </div>
         </div>

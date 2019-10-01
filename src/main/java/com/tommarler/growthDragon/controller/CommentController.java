@@ -66,6 +66,7 @@ public class CommentController {
                 comment.setUser(user);
                 commentPostIdView = authService(creatPostString);
                 commentPostIdView.addObject("comment", comment);
+                commentPostIdView.addObject("post", post);
                 return commentPostIdView;
             } else {
                 commentPostIdView = new ModelAndView();
