@@ -11,26 +11,23 @@ public class Comment {
 
     @Id
     public String id;
-    public Optional<Post> post;
     public Date createdDate;
     public User user;
-    public String body;
+    public String content;
 
-    public Comment(Optional<Post> post, Date createdDate, User user, String body) {
-        this.post = post;
+    public Comment(String id, Date createdDate, User user, String content) {
+        this.id = id;
         this.createdDate = createdDate;
         this.user = user;
-        this.body = body;
+        this.content = content;
     }
 
-    public Comment() {}
-
-    public Optional<Post> getPost() {
-        return post;
+    public String getId() {
+        return id;
     }
 
-    public void setPost(Optional<Post> post) {
-        this.post = post;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Date getCreatedDate() {
@@ -49,11 +46,13 @@ public class Comment {
         this.user = user;
     }
 
-    public String getBody() {
-        return body;
+    public String getContent() {
+        return content;
     }
 
-    public void setBody(String comment) {
-        this.body = body;
+    public void setContent(String content) {
+        this.content = content;
     }
+
+    public Comment() {}
 }

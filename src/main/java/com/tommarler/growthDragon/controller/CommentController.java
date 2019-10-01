@@ -64,7 +64,6 @@ public class CommentController {
             if (user.isEnabled()) {
                 Comment comment = new Comment();
                 comment.setUser(user);
-                comment.setPost(post);
                 commentPostIdView = authService(creatPostString);
                 commentPostIdView.addObject("comment", comment);
                 return commentPostIdView;
