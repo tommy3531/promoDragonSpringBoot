@@ -8,22 +8,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "post")
 public class Post {
 
     @Id
-    private String id;
-
+    private ObjectId id;
     public String title;
     public String content;
     public String createdDate;
-    private User user;
-
+    @DBRef
+    public User user;
     public Post() {}
 
-    @PersistenceConstructor
-    public Post(String id, String title, String content, String createdDate, User user) {
+    public Post(ObjectId id, String title, String content, String createdDate, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -31,11 +30,13 @@ public class Post {
         this.user = user;
     }
 
-    public String getId() {
+
+
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

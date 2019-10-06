@@ -36,14 +36,14 @@
                     <h2>Comments:</h2>
 
                     <!--Comments-->
-                    <div class="well" th:each="cmt : ${comment}">
-                        <h3 th:text="${cmt.content}">Body</h3>
-<!--                        <div th:text="'Created: ' + ${#dates.format(cmt.createDate, 'dd-MMM-yyyy')} + ' by '">-->
-<!--                            Created by-->
+<!--                    <div class="well" th:each="cmt : ${comment}">-->
+<!--                        <h3 th:text="${cmt.content}">Body</h3>-->
+<!--&lt;!&ndash;                        <div th:text="'Created: ' + ${#dates.format(cmt.createDate, 'dd-MMM-yyyy')} + ' by '">&ndash;&gt;-->
+<!--&lt;!&ndash;                            Created by&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                        <div><a th:text="${cmt.user.fullname}" th:href="@{'/blog/' + ${cmt.user.fullname}}">User</a>-->
 <!--                        </div>-->
-                        <div><a th:text="${cmt.user.fullname}" th:href="@{'/blog/' + ${cmt.user.fullname}}">User</a>
-                        </div>
-                    </div>
+<!--                    </div>-->
 
                     <!--Leave a comment button-->
                     <!--Only if authenticated-->

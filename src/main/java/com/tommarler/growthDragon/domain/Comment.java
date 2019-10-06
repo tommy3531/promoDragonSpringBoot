@@ -1,6 +1,6 @@
 package com.tommarler.growthDragon.domain;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -9,17 +9,19 @@ import java.util.Optional;
 @Document(collection = "comment")
 public class Comment {
 
-    @Id
     public String id;
     public Date createdDate;
+    @DBRef
     public User user;
     public String content;
+    public Post post;
 
-    public Comment(String id, Date createdDate, User user, String content) {
+    public Comment(String id, Date createdDate, User user, String content, Post post) {
         this.id = id;
         this.createdDate = createdDate;
         this.user = user;
         this.content = content;
+        this.post = post;
     }
 
     public String getId() {
@@ -52,6 +54,14 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public Comment() {}

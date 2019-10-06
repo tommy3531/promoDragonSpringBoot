@@ -6,6 +6,7 @@ import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.service.CommentService;
 import com.tommarler.growthDragon.service.PostService;
 import com.tommarler.growthDragon.service.UserService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,10 +36,39 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
+    @RequestMapping(value = "/newComment/{id}", method = RequestMethod.GET)
+    public ModelAndView createPostComment(@PathVariable("id") String id, Principal principal, Model model) {
+        String creatPostString = "/user/comment/commentForm";
+        ModelAndView commentPostIdView = new ModelAndView();
+        commentPostIdView.setViewName(creatPostString);
+        User user = userService.findUserByEmail(principal.getName());
+        if (user.isEnabled()) {
+            Comment comment = new Comment();
+            Optional<Post> post = postService.findForId(id);
+            if(post.isPresent()){
+                comment.setPost(post.get());
+                commentPostIdView = new ModelAndView();
+                commentPostIdView.setViewName(creatPostString);
+                commentPostIdView = authService(creatPostString);
+                commentPostIdView.addObject("comment", comment);
+                return commentPostIdView;
+            } else {
+                commentPostIdView = new ModelAndView();
+                commentPostIdView.setViewName("/home");
+                return commentPostIdView;            }
+
+        } else {
+            commentPostIdView = new ModelAndView();
+            commentPostIdView.setViewName("/home");
+            return commentPostIdView;
+        }
+    }
+
+
     @RequestMapping(value = "/createComment", method = RequestMethod.POST)
     public RedirectView createComment(@Valid Comment comment,
                                       BindingResult bindingResult) {
-
+//
         String createForm = "/user/comment/commentForm";
         ModelAndView commentView = new ModelAndView();
         commentView.setViewName(createForm);
@@ -49,34 +79,6 @@ public class CommentController {
         } else {
             commentService.save(comment);
             return new RedirectView("/user/newsFeed");
-        }
-    }
-
-
-    @RequestMapping(value = "/newComment/{id}", method = RequestMethod.GET)
-    public ModelAndView createPostComment(@PathVariable("id") String id, Principal principal, Model model) {
-        String creatPostString = "/user/comment/commentForm";
-        ModelAndView commentPostIdView = new ModelAndView();
-        commentPostIdView.setViewName(creatPostString);
-        Optional<Post> post = postService.findForId(id);
-        if (post != null) {
-            User user = userService.findUserByEmail(principal.getName());
-            if (user.isEnabled()) {
-                Comment comment = new Comment();
-                comment.setUser(user);
-                commentPostIdView = authService(creatPostString);
-                commentPostIdView.addObject("comment", comment);
-                commentPostIdView.addObject("post", post);
-                return commentPostIdView;
-            } else {
-                commentPostIdView = new ModelAndView();
-                commentPostIdView.setViewName("/home");
-                return commentPostIdView;
-            }
-        } else {
-            commentPostIdView = new ModelAndView();
-            commentPostIdView.setViewName("/home");
-            return commentPostIdView;
         }
     }
 
