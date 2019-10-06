@@ -11,7 +11,6 @@ public class Comment {
 
     public String id;
     public Date createdDate;
-    @DBRef
     public User user;
     public String content;
     public Post post;

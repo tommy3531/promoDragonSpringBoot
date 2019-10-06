@@ -18,7 +18,6 @@ public class Post {
     public String title;
     public String content;
     public String createdDate;
-    @DBRef
     public User user;
     public Post() {}
 
@@ -29,8 +28,6 @@ public class Post {
         this.createdDate = createdDate;
         this.user = user;
     }
-
-
 
     public ObjectId getId() {
         return id;

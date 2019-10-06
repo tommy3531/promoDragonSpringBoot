@@ -21,6 +21,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -42,11 +44,13 @@ public class CommentController {
         ModelAndView commentPostIdView = new ModelAndView();
         commentPostIdView.setViewName(creatPostString);
         User user = userService.findUserByEmail(principal.getName());
+        List<Comment> comments = new ArrayList<>();
         if (user.isEnabled()) {
             Comment comment = new Comment();
             Optional<Post> post = postService.findForId(id);
             if(post.isPresent()){
                 comment.setPost(post.get());
+                comment.setUser(user);
                 commentPostIdView = new ModelAndView();
                 commentPostIdView.setViewName(creatPostString);
                 commentPostIdView = authService(creatPostString);

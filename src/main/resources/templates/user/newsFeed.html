@@ -29,7 +29,13 @@
                                 <a th:href="@{'/user/comment/newComment/{id}'(id=${item.id})}" class="col-md-2">
                                     <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="Comment">Comment</button>
                                 </a>
+
                             </li>
+                            <div class="comment" th:each="cmt : ${comment}">
+                                <h1 th:if="${item.id} == ${cmt.post.id}">Found Post Comment</h1>
+                                <h1 th:text="${cmt.content}"></h1>
+
+                            </div>
                         </ul>
                         <span class="text-info">163K users active</span>
                     </div>
