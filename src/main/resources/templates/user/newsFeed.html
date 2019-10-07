@@ -24,20 +24,26 @@
                                         <h4 class="media-heading" th:text="${item.user.fullname}"></h4>
                                         <small class="text-muted pull-right" th:text="${item.createdDate}"></small>
                                         <div th:text="${item.content}"></div>
+                                        <a th:href="@{'/user/comment/newComment/{id}'(id=${item.id})}" class="col-md-2">
+                                            <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="Comment">Comment</button>
+                                        </a>
                                     </div>
                                 </div>
-                                <a th:href="@{'/user/comment/newComment/{id}'(id=${item.id})}" class="col-md-2">
-                                    <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="Comment">Comment</button>
-                                </a>
-
+                                <div class="commentContainer" th:each="cmt : ${comment}">
+                                    <ul class="list-group list-group-dividered list-group-full" th:if="${item.id} == ${cmt.post.id}">
+                                        <li class="list-group-item">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h4 class="media-heading" th:text="${cmt.user.fullname}"></h4>
+                                                    <small class="text-muted pull-right" th:text="${cmt.createdDate}"></small>
+                                                    <div th:text="${cmt.content}"></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
-                            <div class="comment" th:each="cmt : ${comment}">
-                                <h1 th:if="${item.id} == ${cmt.post.id}">Found Post Comment</h1>
-                                <h1 th:text="${cmt.content}"></h1>
-
-                            </div>
                         </ul>
-                        <span class="text-info">163K users active</span>
                     </div>
                     <h2>Comments:</h2>
 
