@@ -29,9 +29,9 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="commentContainer" th:each="cmt : ${comment}">
-                                    <ul class="list-group list-group-dividered list-group-full" th:if="${item.id} == ${cmt.post.id}">
-                                        <li class="list-group-item">
+                                <div class="commentContainer">
+                                    <ul class="list-group list-group-dividered list-group-full" th:each="cmt : ${comment}">
+                                        <li class="list-group-item" th:if="${item.id} == ${cmt.post.id}">
                                             <div class="media">
                                                 <div class="media-body">
                                                     <h4 class="media-heading" th:text="${cmt.user.fullname}"></h4>

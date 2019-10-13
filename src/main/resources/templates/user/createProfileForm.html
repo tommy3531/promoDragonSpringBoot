@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+
+    <div class="container">
+
+        <div class="row" style="margin-top:20px">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form autocomplete="off" th:action="@{/user/editProfile}"
+                      th:object="${userProfileDetails}" method="post" role="form">
+
+                    <h2 class="text-center">Edit Profile</h2>
+                    <h1 th:text="${user.fullname}"></h1>
+                    <div class="form-group">
+                        <p>FirstName: <input type="text" th:field="*{firstName}" /></p>
+                        <p>MiddleName: <input type="text" th:field="*{middleName}" /></p>
+                        <p>LastName: <input type="text" th:field="*{lastName}" /></p>
+
+                        <p>city: <input type="text" th:field="*{city}" /></p>
+                        <p>state: <input type="text" th:field="*{state}" /></p>
+                        <p>zip-code: <input type="text" th:field="*{zipCode}" /></p>
+
+                        <p>Favorite Book: <input type="text" th:field="*{favoriteBook}" /></p>
+                        <p>Favorite Moview: <input type="text" th:field="*{favoriteMovie}" /></p>
+
+                    </div>
+
+                    <input type="hidden" th:field="*{user}"/>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Save Profile</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

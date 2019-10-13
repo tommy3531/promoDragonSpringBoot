@@ -67,18 +67,6 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/newsFeed", method = RequestMethod.GET)
-    public ModelAndView newsFeed() {
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("currentUser", user);
-        modelAndView.addObject("fullName", "Welcome " + user.getFullname());
-        modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("newsFeed");
-        return modelAndView;
-    }
-
     @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
