@@ -5,6 +5,7 @@ import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.domain.UserProfileDetails;
 import com.tommarler.growthDragon.service.CommentService;
 import com.tommarler.growthDragon.service.PostService;
+import com.tommarler.growthDragon.service.UserProfileService;
 import com.tommarler.growthDragon.service.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -34,6 +38,9 @@ public class UserController {
 
     @Autowired
     public CommentService commentService;
+
+    @Autowired
+    public UserProfileService userProfileService;
 
     private ModelAndView authService(String viewName){
         ModelAndView modelAndView = new ModelAndView();
@@ -63,29 +70,21 @@ public class UserController {
         ModelAndView profileView = new ModelAndView();
         profileView = authService(profileString);
         profileView.addObject("currentUser", user);
+        profileView.addObject("userDetails", userProfileService.findUserDetailsForUser(user));
         return profileView;
     }
 
-    @RequestMapping(value = "/editProfile", method = RequestMethod.GET)
-    public ModelAndView newPost(Principal principal, Model model) {
-        String userProfileDetailsForm = "/user/createProfileForm";
-        ModelAndView userProfileDetailFormView;
+    @RequestMapping(value = "/editProfile", method = RequestMethod.POST)
+    public RedirectView editProfile(@Valid UserProfileDetails userProfileDetails, BindingResult bindingResult) {
 
-        User user = userService.findUserByEmail(principal.getName());
-
-        if (user.isEnabled()) {
-            UserProfileDetails userProfileDetails = new UserProfileDetails();
-            userProfileDetails.setUser(user);
-            userProfileDetailFormView = authService(userProfileDetailsForm);
-            userProfileDetailFormView.addObject("userProfileDetails", userProfileDetails);
-            userProfileDetailFormView.addObject("user", user);
-            return userProfileDetailFormView;
+        if (bindingResult.hasErrors()) {
+            return new RedirectView("/user/profile");
         } else {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("login");
-            return modelAndView;
+            userProfileService.save(userProfileDetails);
+            return new RedirectView("/user/profile");
         }
     }
+
 
     @RequestMapping(value = "/editProfile/{id}", method = RequestMethod.GET)
     public ModelAndView createPostComment(@PathVariable("id") String id, Principal principal, Model model) {
@@ -94,6 +93,7 @@ public class UserController {
         userDetailView.setViewName(creatPostString);
         User user = userService.findUserByEmail(principal.getName());
         UserProfileDetails userProfileDetails = new UserProfileDetails();
+        userProfileDetails.setActive(true);
         userProfileDetails.setUser(user);
         userDetailView.addObject("user", user);
         userDetailView.addObject("userProfileDetails", userProfileDetails);

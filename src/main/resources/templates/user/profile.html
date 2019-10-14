@@ -10,11 +10,14 @@
     <div layout:fragment="content">
         <div class="mainContainer">
             <div class="panel-body">
-                <h1 th:text="${currentUser.fullname}"></h1>
+                <div class="userDetails" th:if="${userDetails}">
+                    <h1 th:text="${userDetails.firstName}"></h1>
+                </div>
                 <a th:href="@{'/user/editProfile/{id}'(id=${currentUser.id})}" class="col-md-2">
-                    <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="Comment">Comment</button>
+                    <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="EditProfile">Edit Profile</button>
                 </a>
             </div>
+        </div>
     </div>
 </body>
 </html>

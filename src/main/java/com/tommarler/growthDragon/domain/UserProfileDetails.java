@@ -2,6 +2,8 @@ package com.tommarler.growthDragon.domain;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "userdetails")
@@ -9,9 +11,11 @@ public class UserProfileDetails {
     @Id
     private ObjectId id;
     private User user;
+    @Indexed(name = "firstName", direction = IndexDirection.DESCENDING)
     private String firstName;
     private String middleName;
     private String lastName;
+    private Boolean isActive;
 
     private String address;
     private String city;
@@ -24,12 +28,13 @@ public class UserProfileDetails {
     public UserProfileDetails() {
     }
 
-    public UserProfileDetails(ObjectId id, User user, String firstName, String middleName, String lastName, String address, String city, String state, String zipCode, String favoriteBook, String favoriteMovie) {
+    public UserProfileDetails(ObjectId id, User user, String firstName, String middleName, String lastName, Boolean isActive, String address, String city, String state, String zipCode, String favoriteBook, String favoriteMovie) {
         this.id = id;
         this.user = user;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.isActive = isActive;
         this.address = address;
         this.city = city;
         this.state = state;
@@ -76,6 +81,14 @@ public class UserProfileDetails {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public String getAddress() {
