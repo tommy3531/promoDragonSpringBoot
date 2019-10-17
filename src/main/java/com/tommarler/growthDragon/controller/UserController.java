@@ -99,26 +99,5 @@ public class UserController {
         userDetailView.addObject("userProfileDetails", userProfileDetails);
         System.out.println("Current User ID: " + id);
         return userDetailView;
-//        if (user.isEnabled() && (user.id == id) {
-//            UserProfileDetails userDetails = new UserProfileDetails();
-//            Optional<Post> post = postService.findForId(id);
-//            if(post.isPresent()){
-//                comment.setPost(post.get());
-//                comment.setUser(user);
-//                commentPostIdView = new ModelAndView();
-//                commentPostIdView.setViewName(creatPostString);
-//                commentPostIdView = authService(creatPostString);
-//                commentPostIdView.addObject("comment", comment);
-//                return commentPostIdView;
-//            } else {
-//                commentPostIdView = new ModelAndView();
-//                commentPostIdView.setViewName("/home");
-//                return commentPostIdView;            }
-//
-//        } else {
-//            commentPostIdView = new ModelAndView();
-//            commentPostIdView.setViewName("/home");
-//            return commentPostIdView;
-//        }
     }
 }

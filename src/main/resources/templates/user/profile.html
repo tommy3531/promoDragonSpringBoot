@@ -12,6 +12,12 @@
             <div class="panel-body">
                 <div class="userDetails" th:if="${userDetails}">
                     <h1 th:text="${userDetails.firstName}"></h1>
+                    <h1 th:text="${userDetails.middleName}"></h1>
+                    <h1 th:text="${userDetails.lastName}"></h1>
+                    <h1 th:text="${userDetails.address}"></h1>
+                    <h1 th:text="${userDetails.city}"></h1>
+                    <h1 th:text="${userDetails.state}"></h1>
+                    <h1 th:text="${userDetails.zipCode}"></h1>
                 </div>
                 <a th:href="@{'/user/editProfile/{id}'(id=${currentUser.id})}" class="col-md-2">
                     <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="EditProfile">Edit Profile</button>
