@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "userdetails")
 public class UserProfileDetails {
     @Id
-    private ObjectId id;
     private User user;
     @Indexed(name = "firstName", direction = IndexDirection.DESCENDING)
     private String firstName;
@@ -28,8 +27,7 @@ public class UserProfileDetails {
     public UserProfileDetails() {
     }
 
-    public UserProfileDetails(ObjectId id, User user, String firstName, String middleName, String lastName, Boolean isActive, String address, String city, String state, String zipCode, String favoriteBook, String favoriteMovie) {
-        this.id = id;
+    public UserProfileDetails(User user, String firstName, String middleName, String lastName, Boolean isActive, String address, String city, String state, String zipCode, String favoriteBook, String favoriteMovie) {
         this.user = user;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -41,14 +39,6 @@ public class UserProfileDetails {
         this.zipCode = zipCode;
         this.favoriteBook = favoriteBook;
         this.favoriteMovie = favoriteMovie;
-    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
     }
 
     public User getUser() {
