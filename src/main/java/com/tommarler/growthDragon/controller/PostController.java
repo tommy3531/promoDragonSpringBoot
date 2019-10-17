@@ -38,11 +38,11 @@ public class PostController {
         return modelAndView;
     }
 
-//    @RequestMapping(value = "/like", method = RequestMethod.GET)
-//    public ModelAndView postLike(Principal principal) {
-//        String commentFormString = "/user/post/commentForm";
-//
-//    }
+    @RequestMapping(value = "/like/{id}")
+    public void postLike(Principal principal) {
+        System.out.println("Clicked like");
+
+    }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
     public ModelAndView newPost(Principal principal, Model model) {
