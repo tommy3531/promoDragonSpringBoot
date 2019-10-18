@@ -1,5 +1,6 @@
 package com.tommarler.growthDragon.controller;
 
+import com.tommarler.growthDragon.domain.Like;
 import com.tommarler.growthDragon.domain.Post;
 import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.service.PostService;
@@ -10,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user/post")
@@ -31,16 +34,36 @@ public class PostController {
     private PostService postService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public ModelAndView allPost(Model model) {
+    public ModelAndView allPost() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("post", postService.findAll());
         modelAndView = authService("/user/newsFeed");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/like/{id}")
-    public void postLike(Principal principal) {
-        System.out.println("Clicked like");
+    @RequestMapping(value = "/like/{id}", method = RequestMethod.GET)
+    public RedirectView postLike(@PathVariable("id") String id, Principal principal, Model mode ) {
+        Optional<Post> post = postService.findForId(id);
+        if(post.isPresent()){
+            Post postId = post.get();
+            int counter = 0;
+            int postCount = post.get().getLikes();
+            if(postCount == 0){
+                int like = postCount + 1;
+                postId.setLikes(like);
+                postService.save(postId);
+                return new RedirectView("/user/newsFeed");
+
+
+            } else {
+                int like = postCount + 1;
+                postId.setLikes(like);
+                postService.save(postId);
+                return new RedirectView("/user/newsFeed");
+            }
+        }
+
+        return new RedirectView("/user/newsFeed");
 
     }
 

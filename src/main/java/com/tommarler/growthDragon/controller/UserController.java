@@ -85,7 +85,6 @@ public class UserController {
         }
     }
 
-
     @RequestMapping(value = "/editProfile/{id}", method = RequestMethod.GET)
     public ModelAndView createPostComment(@PathVariable("id") String id, Principal principal, Model model) {
         String creatPostString = "/user/createProfileForm";
