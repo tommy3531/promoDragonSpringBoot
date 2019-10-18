@@ -1,6 +1,5 @@
 package com.tommarler.growthDragon.controller;
 
-import com.tommarler.growthDragon.domain.Like;
 import com.tommarler.growthDragon.domain.Post;
 import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.service.PostService;
@@ -46,15 +45,12 @@ public class PostController {
         Optional<Post> post = postService.findForId(id);
         if(post.isPresent()){
             Post postId = post.get();
-            int counter = 0;
             int postCount = post.get().getLikes();
             if(postCount == 0){
                 int like = postCount + 1;
                 postId.setLikes(like);
                 postService.save(postId);
                 return new RedirectView("/user/newsFeed");
-
-
             } else {
                 int like = postCount + 1;
                 postId.setLikes(like);

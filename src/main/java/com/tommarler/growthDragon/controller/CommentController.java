@@ -6,7 +6,6 @@ import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.service.CommentService;
 import com.tommarler.growthDragon.service.PostService;
 import com.tommarler.growthDragon.service.UserService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

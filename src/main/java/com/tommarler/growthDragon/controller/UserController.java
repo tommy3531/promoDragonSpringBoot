@@ -1,17 +1,14 @@
 package com.tommarler.growthDragon.controller;
 
-import com.tommarler.growthDragon.domain.Post;
 import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.domain.UserProfileDetails;
 import com.tommarler.growthDragon.service.CommentService;
 import com.tommarler.growthDragon.service.PostService;
 import com.tommarler.growthDragon.service.UserProfileService;
 import com.tommarler.growthDragon.service.UserService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +20,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
