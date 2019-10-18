@@ -25,7 +25,7 @@
                                         <small class="text-muted pull-right" th:text="${item.createdDate}"></small>
                                         <div th:text="${item.content}"></div>
                                         <a th:href="@{'/user/post/like/{id}'(id=${item.id})}" class="col-md-2">
-                                            <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${item.likes}">Like</button>
+                                            <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'Like   +'+ item.likes}">Like</button>
                                         </a>
                                         <a th:href="@{'/user/comment/newComment/{id}'(id=${item.id})}" class="col-md-2">
                                             <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="Comment">Comment</button>

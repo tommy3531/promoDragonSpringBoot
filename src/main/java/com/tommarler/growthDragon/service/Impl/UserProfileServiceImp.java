@@ -5,11 +5,8 @@ import com.tommarler.growthDragon.domain.UserProfileDetails;
 import com.tommarler.growthDragon.repository.UserProfileRepository;
 import com.tommarler.growthDragon.repository.UserRepository;
 import com.tommarler.growthDragon.service.UserProfileService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserProfileServiceImp implements UserProfileService {
