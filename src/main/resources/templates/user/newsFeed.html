@@ -13,7 +13,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">News Feed</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" >
                         <a href="/user/post/newPost" class="btn btn-info btn-sm pull-right waves-effect waves-light">Post</a>
                         <div class="clearfix"></div>
                         <hr class="margin-bottom-10">
@@ -24,8 +24,8 @@
                                         <h4 class="media-heading" th:text="${item.user.fullname}"></h4>
                                         <small class="text-muted pull-right" th:text="${item.createdDate}"></small>
                                         <div th:text="${item.content}"></div>
-                                        <a th:href="@{'/user/post/like/{id}'(id=${item.id})}" class="col-md-2">
-                                            <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'Like   +'+ item.likes}">Like</button>
+                                        <a th:href="@{'/user/like/{id}'(id=${item.id})}" class="col-md-2">
+                                            <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'Like   +'+ like.likeCount}">Like</button>
                                         </a>
                                         <a th:href="@{'/user/comment/newComment/{id}'(id=${item.id})}" class="col-md-2">
                                             <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="Comment">Comment</button>

@@ -12,16 +12,14 @@ public class Post {
     public String title;
     public String content;
     public String createdDate;
-    public int likes;
     public User user;
     public Post() {}
 
-    public Post(ObjectId id, String title, String content, String createdDate, int likes, User user) {
+    public Post(ObjectId id, String title, String content, String createdDate, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
-        this.likes = likes;
         this.user = user;
     }
 
@@ -55,14 +53,6 @@ public class Post {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
     }
 
     public User getUser() {

@@ -40,28 +40,47 @@ public class PostController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/like/{id}", method = RequestMethod.GET)
-    public RedirectView postLike(@PathVariable("id") String id, Principal principal, Model mode ) {
-        Optional<Post> post = postService.findForId(id);
-        if(post.isPresent()){
-            Post postId = post.get();
-            int postCount = post.get().getLikes();
-            if(postCount == 0){
-                int like = postCount + 1;
-                postId.setLikes(like);
-                postService.save(postId);
-                return new RedirectView("/user/newsFeed");
-            } else {
-                int like = postCount + 1;
-                postId.setLikes(like);
-                postService.save(postId);
-                return new RedirectView("/user/newsFeed");
-            }
-        }
+//    @RequestMapping(value = "/like/{id}", method = RequestMethod.GET)
+//    public RedirectView postLike(@PathVariable("id") String id, Principal principal, Model mode ) {
+//        Optional<Post> post = postService.findForId(id);
+//        if(post.isPresent()){
+//            Post postId = post.get();
+//            int postCount = post.get().getLikes();
+//            if(postCount == 0){
+//                int like = postCount + 1;
+//                postId.setLikes(like);
+//                postService.save(postId);
+//                return new RedirectView("/user/newsFeed");
+//            } else {
+//                int like = postCount + 1;
+//                postId.setLikes(like);
+//                postService.save(postId);
+//                return new RedirectView("/user/newsFeed");
+//            }
+//        }
+//        return new RedirectView("/user/newsFeed");
+//    }
 
-        return new RedirectView("/user/newsFeed");
-
-    }
+//    @RequestMapping(value = "/unlike/{id}", method = RequestMethod.GET)
+//    public RedirectView postUnLike(@PathVariable("id") String id, Principal principal, Model mode ) {
+//        Optional<Post> post = postService.findForId(id);
+//        if(post.isPresent()){
+//            Post postId = post.get();
+//            int postCount = post.get().getLikes();
+//            if(postCount == 0){
+//                int like = postCount - 1;
+//                postId.setLikes(like);
+//                postService.save(postId);
+//                return new RedirectView("/user/newsFeed");
+//            } else {
+//                int like = postCount - 1;
+//                postId.setLikes(like);
+//                postService.save(postId);
+//                return new RedirectView("/user/newsFeed");
+//            }
+//        }
+//        return new RedirectView("/user/newsFeed");
+//    }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
     public ModelAndView newPost(Principal principal, Model model) {

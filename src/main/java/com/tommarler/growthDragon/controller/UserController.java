@@ -2,10 +2,7 @@ package com.tommarler.growthDragon.controller;
 
 import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.domain.UserProfileDetails;
-import com.tommarler.growthDragon.service.CommentService;
-import com.tommarler.growthDragon.service.PostService;
-import com.tommarler.growthDragon.service.UserProfileService;
-import com.tommarler.growthDragon.service.UserService;
+import com.tommarler.growthDragon.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,6 +35,9 @@ public class UserController {
     @Autowired
     public UserProfileService userProfileService;
 
+    @Autowired
+    public LikeService likeService;
+
     private ModelAndView authService(String viewName){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -50,12 +50,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "/newsFeed", method = RequestMethod.GET)
-    public ModelAndView newsFeed() {
+    public ModelAndView newsFeed(Principal principal) {
         String newsFeedString = "/user/newsFeed";
         ModelAndView newsFeedView = new ModelAndView();
+        User user = userService.findUserByEmail(principal.getName());
         newsFeedView = authService(newsFeedString);
         newsFeedView.addObject("post", postService.findAll());
         newsFeedView.addObject("comment", commentService.findAll());
+        newsFeedView.addObject("user", user);
+        newsFeedView.addObject("like", likeService.findLikeByUser(user));
         return newsFeedView;
     }
 
