@@ -8,9 +8,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "like")
 public class Like {
+
     @Id
+
     private User user;
-    @Indexed(name = "post", direction = IndexDirection.DESCENDING)
     private Post post;
     public int likeCount;
 

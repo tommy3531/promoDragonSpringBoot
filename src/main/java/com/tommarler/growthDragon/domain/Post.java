@@ -13,14 +13,16 @@ public class Post {
     public String content;
     public String createdDate;
     public User user;
+    public int likeCount;
     public Post() {}
 
-    public Post(ObjectId id, String title, String content, String createdDate, User user) {
+    public Post(ObjectId id, String title, String content, String createdDate, User user, int likeCount) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
         this.user = user;
+        this.likeCount = likeCount;
     }
 
     public ObjectId getId() {
@@ -57,6 +59,14 @@ public class Post {
 
     public User getUser() {
         return user;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 
     public void setUser(User user) {

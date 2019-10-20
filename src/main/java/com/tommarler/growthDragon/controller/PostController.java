@@ -1,7 +1,9 @@
 package com.tommarler.growthDragon.controller;
 
+import com.tommarler.growthDragon.domain.Like;
 import com.tommarler.growthDragon.domain.Post;
 import com.tommarler.growthDragon.domain.User;
+import com.tommarler.growthDragon.service.LikeService;
 import com.tommarler.growthDragon.service.PostService;
 import com.tommarler.growthDragon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -32,6 +35,9 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private LikeService likeService;
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ModelAndView allPost() {
         ModelAndView modelAndView = new ModelAndView();
@@ -40,47 +46,63 @@ public class PostController {
         return modelAndView;
     }
 
-//    @RequestMapping(value = "/like/{id}", method = RequestMethod.GET)
-//    public RedirectView postLike(@PathVariable("id") String id, Principal principal, Model mode ) {
-//        Optional<Post> post = postService.findForId(id);
-//        if(post.isPresent()){
-//            Post postId = post.get();
-//            int postCount = post.get().getLikes();
-//            if(postCount == 0){
-//                int like = postCount + 1;
-//                postId.setLikes(like);
-//                postService.save(postId);
-//                return new RedirectView("/user/newsFeed");
-//            } else {
-//                int like = postCount + 1;
-//                postId.setLikes(like);
-//                postService.save(postId);
-//                return new RedirectView("/user/newsFeed");
-//            }
-//        }
-//        return new RedirectView("/user/newsFeed");
-//    }
+    @RequestMapping(value = "/like/{id}", method = RequestMethod.GET)
+    public RedirectView postLike(@PathVariable("id") String id, Principal principal, Model mode ) {
+        Optional<Post> post = postService.findForId(id);
+        Post postId = post.get();
+        int postCount = post.get().getLikeCount();
 
-//    @RequestMapping(value = "/unlike/{id}", method = RequestMethod.GET)
-//    public RedirectView postUnLike(@PathVariable("id") String id, Principal principal, Model mode ) {
-//        Optional<Post> post = postService.findForId(id);
-//        if(post.isPresent()){
-//            Post postId = post.get();
-//            int postCount = post.get().getLikes();
-//            if(postCount == 0){
-//                int like = postCount - 1;
-//                postId.setLikes(like);
-//                postService.save(postId);
-//                return new RedirectView("/user/newsFeed");
-//            } else {
-//                int like = postCount - 1;
-//                postId.setLikes(like);
-//                postService.save(postId);
-//                return new RedirectView("/user/newsFeed");
-//            }
-//        }
-//        return new RedirectView("/user/newsFeed");
-//    }
+        User user = userService.findUserByEmail(principal.getName());
+        List<Like> likeServiceAll = likeService.findAll();
+        if(postId.getId() != null && likeServiceAll.size() > 0) {
+            int like = postCount + 1;
+            postId.setLikeCount(like);
+            postService.save(postId);
+            for(Like likeItem: likeServiceAll){
+                System.out.println("Post and Like present, WOW");
+                System.out.println("User who liked Post: " + likeItem.getUser().getId());
+                System.out.println("Current Logged in user: " + user.getId());
+                likeItem.setUser(user);
+                likeItem.setPost(postId);
+                likeItem.setLikeCount(like);
+                likeService.save(likeItem);
+            }
+
+            return new RedirectView("/user/newsFeed");
+        } else {
+            int like = postCount + 1;
+            postId.setLikeCount(like);
+            postService.save(postId);
+            Like likeData = new Like();
+            likeData.setUser(user);
+            likeData.setPost(postId);
+            likeData.setLikeCount(like);
+            likeService.save(likeData);
+            return new RedirectView("/user/newsFeed");
+
+        }
+    }
+
+    @RequestMapping(value = "/dislike/{id}", method = RequestMethod.GET)
+    public RedirectView postUnLike(@PathVariable("id") String id, Principal principal, Model mode ) {
+        Optional<Post> post = postService.findForId(id);
+        if(post.isPresent()){
+            Post postId = post.get();
+            int postCount = post.get().getLikeCount();
+            if(postCount == 0){
+                int like = postCount + 1;
+                postId.setLikeCount(like);
+                postService.save(postId);
+                return new RedirectView("/user/newsFeed");
+            } else {
+                int like = postCount - 1;
+                postId.setLikeCount(like);
+                postService.save(postId);
+                return new RedirectView("/user/newsFeed");
+            }
+        }
+        return new RedirectView("/user/newsFeed");
+    }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
     public ModelAndView newPost(Principal principal, Model model) {
