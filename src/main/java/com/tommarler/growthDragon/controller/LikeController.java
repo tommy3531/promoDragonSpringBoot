@@ -56,4 +56,31 @@ public class LikeController {
             return new RedirectView("/user/newsFeed");
         }
     }
+
+    @RequestMapping(value = "/dislike/{id}", method = RequestMethod.GET)
+    public RedirectView postDisLike(@PathVariable("id") String id, Principal principal, Model mode ) {
+        Optional<Post> postObject = postService.findForId(id);
+        Post unwrappedPost = postObject.get();
+        User user = userService.findUserByEmail(principal.getName());
+        Like likeInfo = likeService.findLikeByUser(user);
+        int likeCount = likeInfo.getLikeCount();
+        if(likeCount == 0){
+            int like = likeCount + 1;
+
+            likeInfo.setLikeCount(like);
+            likeInfo.setUser(user);
+            likeInfo.setPost(unwrappedPost);
+            likeService.save(likeInfo);
+            return new RedirectView("/user/newsFeed");
+
+        } else {
+            int like = likeCount - 1;
+
+            likeInfo.setLikeCount(like);
+            likeInfo.setUser(user);
+            likeInfo.setPost(unwrappedPost);
+            likeService.save(likeInfo);
+            return new RedirectView("/user/newsFeed");
+        }
+    }
 }
