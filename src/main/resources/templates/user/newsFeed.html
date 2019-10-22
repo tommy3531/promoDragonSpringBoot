@@ -24,13 +24,13 @@
                                         <h4 class="media-heading" th:text="${item.user.fullname}"></h4>
                                         <small class="text-muted pull-right" th:text="${item.createdDate}"></small>
                                         <div th:text="${item.content}"></div>
-
-                                        <div class="likeContainer">
-                                            <a th:href="@{'/user/post/like/{id}'(id=${item.id})}" class="col-md-2" th:if="${item.likeCount == 0 && user.id == like.user.id}">
-                                                <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'Like   +'+ item.likeCount}">Like</button>
+                                        <h6 th:text="${item.likeCount}"></h6>
+                                        <div class="likeContainer" th:each="likeItem : ${like}">
+                                            <a th:href="@{'/user/post/like/{id}'(id=${item.id})}" class="col-md-2" th:if="${likeItem.likeCount == 0 && user.id == likeItem.post.user.id}">
+                                                <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'Like   +'}">Like</button>
                                             </a>
-                                            <a th:href="@{'/user/post/dislike/{id}'(id=${item.id})}" class="col-md-2" th:unless="${item.likeCount == 0 && user.id == like.user.id}">
-                                                <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'dislike   +'+ item.likeCount}">dislike</button>
+                                            <a th:href="@{'/user/post/dislike/{id}'(id=${item.id})}" class="col-md-2" th:unless="${likeItem.likeCount == 0 && user.id == likeItem.post.user.id}">
+                                                <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'dislike   +'}">dislike</button>
                                             </a>
                                         </div>
                                         <a th:href="@{'/user/comment/newComment/{id}'(id=${item.id})}" class="col-md-2">
