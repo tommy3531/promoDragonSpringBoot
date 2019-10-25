@@ -9,15 +9,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "like")
 public class Like {
 
-    @Id
-
+    private int likeCount;
     private User user;
-    private Post post;
-    public int likeCount;
 
-    public Like(User user, Post post, int likeCount) {
+    public Like(User user, int likeCount) {
         this.user = user;
-        this.post = post;
         this.likeCount = likeCount;
     }
 
@@ -29,14 +25,6 @@ public class Like {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
     }
 
     public int getLikeCount() {

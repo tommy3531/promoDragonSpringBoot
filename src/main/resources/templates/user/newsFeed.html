@@ -25,13 +25,24 @@
                                         <small class="text-muted pull-right" th:text="${postItem.createdDate}"></small>
                                         <div th:text="${postItem.content}"></div>
                                         <h6 th:text="${postItem.likeCount}"></h6>
-                                        <div class="likeContainer" th:each="likeItem : ${like}">
-                                            <a th:href="@{'/user/post/like/{id}'(id=${postItem.id})}" class="col-md-2" th:if="${likeItem.likeCount == 0 && postItem.id == likeItem.post.id}">
-                                                <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'Like   +'}">Like</button>
-                                            </a>
-                                            <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2" th:unless="${likeItem.likeCount == 0 && postItem.id == likeItem.post.id}">
-                                                <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'dislike   +'}">dislike</button>
-                                            </a>
+                                        <div class="likeMainContainer" th:each="like : ${postItem.likes}">
+                                            <h6 th:text="${like}"></h6>
+                                            <div class="likeContainer" th:if="${like}">
+                                                <a th:href="@{'/user/post/like/{id}'(id=${postItem.id})}" class="col-md-2" th:if="${user.id}">
+                                                    <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'Like   +'}">Like</button>
+                                                </a>
+                                                <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2" th:unless="${user.id}">
+                                                    <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'dislike   +'}">dislike</button>
+                                                </a>
+                                            </div>
+                                            <div class="likeContainer" th:unless="${postItem.id}">
+                                                <a th:href="@{'/user/post/like/{id}'(id=${postItem.id})}" class="col-md-2" th:if="${user.id}">
+                                                    <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'UnlessLike   +'}">UnlessLike</button>
+                                                </a>
+                                                <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2" th:unless="${user.id">
+                                                    <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'Unlessdislike   +'}">Unlessdislike</button>
+                                                </a>
+                                            </div>
                                         </div>
                                         <a th:href="@{'/user/comment/newComment/{id}'(id=${postItem.id})}" class="col-md-2">
                                             <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="Comment">Comment</button>

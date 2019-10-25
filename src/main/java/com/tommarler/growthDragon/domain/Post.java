@@ -4,6 +4,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+
 @Document(collection = "post")
 public class Post {
 
@@ -14,6 +16,7 @@ public class Post {
     public String createdDate;
     public User user;
     public int likeCount;
+    ArrayList<Like> likes;
     public Post() {}
 
     public Post(ObjectId id, String title, String content, String createdDate, User user, int likeCount) {
@@ -71,5 +74,13 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public ArrayList<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(ArrayList<Like> likes) {
+        this.likes = likes;
     }
 }
