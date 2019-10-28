@@ -10,22 +10,23 @@ import java.util.ArrayList;
 public class Post {
 
     @Id
-    private ObjectId id;
+    public ObjectId id;
     public String title;
     public String content;
     public String createdDate;
-    public User user;
-    public int likeCount;
-    ArrayList<Like> likes;
+    public ArrayList<User> users;
+    public ArrayList<Like> likes;
+    public int totalLikeCount;
     public Post() {}
 
-    public Post(ObjectId id, String title, String content, String createdDate, User user, int likeCount) {
+    public Post(ObjectId id, String title, String content, String createdDate, ArrayList<User> users, ArrayList<Like> likes, int totalLikeCount) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
-        this.user = user;
-        this.likeCount = likeCount;
+        this.users = users;
+        this.likes = likes;
+        this.totalLikeCount = totalLikeCount;
     }
 
     public ObjectId getId() {
@@ -60,20 +61,12 @@ public class Post {
         this.createdDate = createdDate;
     }
 
-    public User getUser() {
-        return user;
+    public ArrayList<User> getUsers() {
+        return users;
     }
 
-    public int getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
     }
 
     public ArrayList<Like> getLikes() {
@@ -82,5 +75,13 @@ public class Post {
 
     public void setLikes(ArrayList<Like> likes) {
         this.likes = likes;
+    }
+
+    public int getTotalLikeCount() {
+        return totalLikeCount;
+    }
+
+    public void setTotalLikeCount(int totalLikeCount) {
+        this.totalLikeCount = totalLikeCount;
     }
 }

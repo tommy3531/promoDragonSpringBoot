@@ -17,6 +17,7 @@
                         <a href="/user/post/newPost" class="btn btn-info btn-sm pull-right waves-effect waves-light">Post</a>
                         <div class="clearfix"></div>
                         <hr class="margin-bottom-10">
+                        <!--/* Loop through all the posts  */-->
                         <ul class="list-group list-group-dividered list-group-full" th:each="postItem : ${post}">
                             <li class="list-group-item">
                                 <div class="media">
@@ -25,67 +26,41 @@
                                         <small class="text-muted pull-right" th:text="${postItem.createdDate}"></small>
                                         <div th:text="${postItem.content}"></div>
                                         <h6 th:text="${postItem.likeCount}"></h6>
-                                        <div class="likeMainContainer" th:each="like : ${postItem.likes}">
-                                            <h6 th:text="${like}"></h6>
-                                            <div class="likeContainer" th:if="${like}">
-                                                <a th:href="@{'/user/post/like/{id}'(id=${postItem.id})}" class="col-md-2" th:if="${user.id}">
-                                                    <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'Like   +'}">Like</button>
-                                                </a>
-                                                <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2" th:unless="${user.id}">
-                                                    <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'dislike   +'}">dislike</button>
+                                        <!--/* If a post exists */-->
+                                        <div class="postExist" th:if="${postItem}">
+                                            <!--/* If post exists and logged in user created post */-->
+                                            <div class="postExistAndBelongsToUser" th:if="${postItem.user.id == user.id}">
+                                            </div>
+                                            <div class="postExistAndBelongsToUser" th:if="${postItem.user.id != user.id}">
+                                                <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2">
+                                                    <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'likeTop   +'}">likeTop</button>
                                                 </a>
                                             </div>
-                                            <div class="likeContainer" th:unless="${postItem.id}">
-                                                <a th:href="@{'/user/post/like/{id}'(id=${postItem.id})}" class="col-md-2" th:if="${user.id}">
-                                                    <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'UnlessLike   +'}">UnlessLike</button>
-                                                </a>
-                                                <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2" th:unless="${user.id">
-                                                    <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'Unlessdislike   +'}">Unlessdislike</button>
-                                                </a>
-                                            </div>
+                                            <!--/* Loop through post likes */-->
+<!--                                            <div class="likeMainContainer" th:each="postLike : ${postItem.likes}">-->
+<!--                                                &lt;!&ndash;/*  If like exists */&ndash;&gt;-->
+<!--                                                <div class="likeExist" th:if="${postLike}">-->
+<!--                                                    &lt;!&ndash;/* If post was not created by logged in user and like Count is zero */&ndash;&gt;-->
+<!--                                                    <div class="likeExistUserAndLikeCountZero" th:if="${postLike.user.id != like.user.id}">-->
+<!--                                                        <div class="userOwnsLike" th:if="${postLike.user.id == user.id}">-->
+<!--                                                            &lt;!&ndash; Like belongs to user and like count is greater then 0 show dislike */&ndash;&gt;-->
+<!--                                                            <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2">-->
+<!--                                                                <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'DisLikeE   +'}">DisLikeE</button>-->
+<!--                                                            </a>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="userDoesNotOwnLike" th:unless="${postLike.user.id == like.user.id}">-->
+<!--                                                            <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2">-->
+<!--                                                                <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'like   +'}">like</button>-->
+<!--                                                            </a>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
                                         </div>
-                                        <a th:href="@{'/user/comment/newComment/{id}'(id=${postItem.id})}" class="col-md-2">
-                                            <button type="button" class="btn btn-info btn-sm pull-right waves-effect waves-light" th:text="Comment">Comment</button>
-                                        </a>
                                     </div>
-                                </div>
-                                <div class="commentContainer">
-                                    <ul class="list-group list-group-dividered list-group-full" th:each="cmt : ${comment}">
-                                        <li class="list-group-item" th:if="${item.id} == ${cmt.post.id}">
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h4 class="media-heading" th:text="${cmt.user.fullname}"></h4>
-                                                    <small class="text-muted pull-right" th:text="${cmt.createdDate}"></small>
-                                                    <div th:text="${cmt.content}"></div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </div>
                             </li>
                         </ul>
-                    </div>
-                    <h2>Comments:</h2>
-
-                    <!--Comments-->
-<!--                    <div class="well" th:each="cmt : ${comment}">-->
-<!--                        <h3 th:text="${cmt.content}">Body</h3>-->
-<!--&lt;!&ndash;                        <div th:text="'Created: ' + ${#dates.format(cmt.createDate, 'dd-MMM-yyyy')} + ' by '">&ndash;&gt;-->
-<!--&lt;!&ndash;                            Created by&ndash;&gt;-->
-<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                        <div><a th:text="${cmt.user.fullname}" th:href="@{'/blog/' + ${cmt.user.fullname}}">User</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-                    <!--Leave a comment button-->
-                    <!--Only if authenticated-->
-<!--                    <div sec:authorize="isAuthenticated()">-->
-<!--                        <div class="row">-->
-<!--                            <a th:href="@{'/commentPost/{id}'(id=${post.id})}" class="col-md-2">-->
-<!--                                <button type="button" class="btn btn-primary btn-block" th:text="Comment">Comment</button>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
                     </div>
                 </div>
             </div>

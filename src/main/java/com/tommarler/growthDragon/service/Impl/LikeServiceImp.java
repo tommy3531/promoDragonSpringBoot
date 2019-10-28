@@ -25,18 +25,18 @@ public class LikeServiceImp implements LikeService {
 
     @Override
     public Like findLikeByUser(User user) {
-        List<Like> allLikes = likeRepository.findByUser(user);
-        for(Like item: allLikes){
-            ObjectId likeUserId = item.getUser().getId();
-            ObjectId userId = user.getId();
-            if(likeUserId.equals(userId)){
-                System.out.println("What the heck: ");
-                return item;
-            } else {
-                Like like = new Like();
-                return like;
-            }
-        }
+//        List<Like> allLikes = likeRepository.findByUser(user);
+//        for(Like item: allLikes){
+//            ObjectId likeUserId = item..getId();
+//            ObjectId userId = user.getId();
+//            if(likeUserId.equals(userId)){
+//                System.out.println("What the heck: ");
+//                return item;
+//            } else {
+//                Like like = new Like();
+//                return like;
+//            }
+//        }
         Like like = new Like();
         return like;
 
