@@ -48,8 +48,6 @@ public class CommentController {
             Comment comment = new Comment();
             Optional<Post> post = postService.findForId(id);
             if(post.isPresent()){
-                comment.setPost(post.get());
-                comment.setUser(user);
                 commentPostIdView = new ModelAndView();
                 commentPostIdView.setViewName(creatPostString);
                 commentPostIdView = authService(creatPostString);

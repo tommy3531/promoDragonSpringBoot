@@ -10,30 +10,24 @@ import java.util.ArrayList;
 public class Post {
 
     @Id
-    public ObjectId id;
+    public String id;
     public String title;
     public String content;
     public String createdDate;
-    public ArrayList<User> users;
-    public ArrayList<Like> likes;
-    public int totalLikeCount;
     public Post() {}
 
-    public Post(ObjectId id, String title, String content, String createdDate, ArrayList<User> users, ArrayList<Like> likes, int totalLikeCount) {
+    public Post(String id, String title, String content, String createdDate) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
-        this.users = users;
-        this.likes = likes;
-        this.totalLikeCount = totalLikeCount;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -59,29 +53,5 @@ public class Post {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
-    }
-
-    public ArrayList<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(ArrayList<Like> likes) {
-        this.likes = likes;
-    }
-
-    public int getTotalLikeCount() {
-        return totalLikeCount;
-    }
-
-    public void setTotalLikeCount(int totalLikeCount) {
-        this.totalLikeCount = totalLikeCount;
     }
 }

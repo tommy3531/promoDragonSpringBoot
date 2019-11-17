@@ -15,15 +15,14 @@ import java.util.Set;
 public class User {
 
     @Id
-    public ObjectId id;
+    public String id;
     public String email;
     public String password;
     public String fullname;
     public boolean enabled;
-    @DBRef
     public Set<Role> roles;
 
-    public User(ObjectId id, String email, String password, String fullname, boolean enabled, Set<Role> roles) {
+    public User(String id, String email, String password, String fullname, boolean enabled, Set<Role> roles) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -34,11 +33,11 @@ public class User {
 
     public User() {}
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

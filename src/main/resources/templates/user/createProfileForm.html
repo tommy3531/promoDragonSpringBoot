@@ -12,7 +12,7 @@
         <div class="row" style="margin-top:20px">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <form autocomplete="off" th:action="@{/user/editProfile}"
-                      th:object="${userProfileDetails}" method="post" role="form">
+                      th:object="${userProfile}" method="post" role="form">
 
                     <h2 class="text-center">Edit Profile</h2>
                     <h1 th:text="${user.fullname}"></h1>

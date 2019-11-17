@@ -1,12 +1,10 @@
 package com.tommarler.growthDragon.service.Impl;
 
-import com.tommarler.growthDragon.domain.Like;
+import com.tommarler.growthDragon.domain.UserLike;
 import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.repository.LikeRepository;
 import com.tommarler.growthDragon.service.LikeService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +17,12 @@ public class LikeServiceImp implements LikeService {
     public LikeRepository likeRepository;
 
     @Override
-    public List<Like> findAll() {
+    public List<UserLike> findAll() {
         return likeRepository.findAll();
     }
 
     @Override
-    public Like findLikeByUser(User user) {
+    public UserLike findLikeByUser(User user) {
 //        List<Like> allLikes = likeRepository.findByUser(user);
 //        for(Like item: allLikes){
 //            ObjectId likeUserId = item..getId();
@@ -37,18 +35,18 @@ public class LikeServiceImp implements LikeService {
 //                return like;
 //            }
 //        }
-        Like like = new Like();
-        return like;
+        UserLike userLike = new UserLike();
+        return userLike;
 
     }
 
     @Override
-    public Optional<Like> findForId(String id) {
+    public Optional<UserLike> findForId(String id) {
         return Optional.empty();
     }
 
     @Override
-    public Like save(Like like) {
-        return likeRepository.save(like);
+    public UserLike save(UserLike userLike) {
+        return likeRepository.save(userLike);
     }
 }

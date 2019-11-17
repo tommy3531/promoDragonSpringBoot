@@ -1,7 +1,7 @@
 package com.tommarler.growthDragon.controller;
 
 import com.tommarler.growthDragon.domain.User;
-import com.tommarler.growthDragon.domain.UserProfileDetails;
+import com.tommarler.growthDragon.domain.UserProfile;
 import com.tommarler.growthDragon.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -74,12 +74,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/editProfile", method = RequestMethod.POST)
-    public RedirectView editProfile(@Valid UserProfileDetails userProfileDetails, BindingResult bindingResult) {
+    public RedirectView editProfile(@Valid UserProfile userProfile, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return new RedirectView("/user/profile");
         } else {
-            userProfileService.save(userProfileDetails);
+            userProfileService.save(userProfile);
             return new RedirectView("/user/profile");
         }
     }
@@ -90,11 +90,11 @@ public class UserController {
         ModelAndView userDetailView = new ModelAndView();
         userDetailView.setViewName(creatPostString);
         User user = userService.findUserByEmail(principal.getName());
-        UserProfileDetails userProfileDetails = new UserProfileDetails();
-        userProfileDetails.setActive(true);
-        userProfileDetails.setUser(user);
+        UserProfile userProfile = new UserProfile();
+        userProfile.setActive(true);
+        userProfile.setUser(user);
         userDetailView.addObject("user", user);
-        userDetailView.addObject("userProfileDetails", userProfileDetails);
+        userDetailView.addObject("userProfileDetails", userProfile);
         System.out.println("Current User ID: " + id);
         return userDetailView;
     }

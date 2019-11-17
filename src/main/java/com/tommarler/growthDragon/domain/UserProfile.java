@@ -7,10 +7,10 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "userdetails")
-public class UserProfileDetails {
+public class UserProfile {
     @Id
+    private String id;
     private User user;
-    @Indexed(name = "firstName", direction = IndexDirection.DESCENDING)
     private String firstName;
     private String middleName;
     private String lastName;
@@ -24,10 +24,10 @@ public class UserProfileDetails {
     private String favoriteBook;
     private String favoriteMovie;
 
-    public UserProfileDetails() {
+    public UserProfile() {
     }
 
-    public UserProfileDetails(User user, String firstName, String middleName, String lastName, Boolean isActive, String address, String city, String state, String zipCode, String favoriteBook, String favoriteMovie) {
+    public UserProfile(User user, String firstName, String middleName, String lastName, Boolean isActive, String address, String city, String state, String zipCode, String favoriteBook, String favoriteMovie) {
         this.user = user;
         this.firstName = firstName;
         this.middleName = middleName;

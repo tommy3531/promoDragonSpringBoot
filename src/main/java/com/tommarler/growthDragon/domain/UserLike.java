@@ -8,27 +8,39 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 
-@Document(collection = "like")
-public class Like {
+@Document(collection = "userlike")
+public class UserLike {
 
-    public int likeCount;
+    @Id
+    public String id;
+    public User user;
+    public Post post;
     public ArrayList<User> users;
     public ArrayList<Post> posts;
 
-    public Like() {}
+    public UserLike() {}
 
-    public Like(int likeCount, ArrayList<User> users, ArrayList<Post> posts) {
-        this.likeCount = likeCount;
+    public UserLike(User user, Post post, ArrayList<User> users, ArrayList<Post> posts) {
+        this.user = user;
+        this.post = post;
         this.users = users;
         this.posts = posts;
     }
 
-    public int getLikeCount() {
-        return likeCount;
+    public User getUser() {
+        return user;
     }
 
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public ArrayList<User> getUsers() {

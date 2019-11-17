@@ -1,14 +1,12 @@
 package com.tommarler.growthDragon.controller;
 
-import com.tommarler.growthDragon.domain.Like;
+import com.tommarler.growthDragon.domain.UserLike;
 import com.tommarler.growthDragon.domain.Post;
-import com.tommarler.growthDragon.domain.PostLike;
 import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.service.LikeService;
-import com.tommarler.growthDragon.service.PostLikeService;
+import com.tommarler.growthDragon.service.UserLikeService;
 import com.tommarler.growthDragon.service.PostService;
 import com.tommarler.growthDragon.service.UserService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,7 +42,7 @@ public class PostController {
     private LikeService likeService;
 
     @Autowired
-    private PostLikeService postLikeService;
+    private UserLikeService userLikeService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ModelAndView allPost() {
@@ -60,15 +58,13 @@ public class PostController {
         // Post knows about likes
         Optional<Post> post = postService.findForId(id);
         Post postData = post.get();
-        int totalLikeCount = postData.getTotalLikeCount();
 
         // PostLike
-        List<PostLike> postLike = postLikeService.findAll();
+        List<UserLike> postLike = userLikeService.findAll();
 
 
 
         // Incrementer for post count
-        int totalPostLikes = totalLikeCount + 1;
         int personLikeCount = 0;
         int increaseLikeCount = personLikeCount + 1;
 
@@ -76,7 +72,7 @@ public class PostController {
         User user = userService.findUserByEmail(principal.getName());
 
         // holder for post likes
-        ArrayList<Like> likes = new ArrayList<>();
+        ArrayList<UserLike> userLikes = new ArrayList<>();
         ArrayList<Post> posts = new ArrayList<>();
         return new RedirectView("/user/newsFeed");
 
@@ -87,10 +83,9 @@ public class PostController {
     public RedirectView postUnLike(@PathVariable("id") String id, Principal principal, Model model ) {
         Optional<Post> post = postService.findForId(id);
         Post postId = post.get();
-        int postCount = post.get().getTotalLikeCount();
 
         User user = userService.findUserByEmail(principal.getName());
-        List<Like> likeServiceAll = likeService.findAll();
+        List<UserLike> userLikeServiceAll = likeService.findAll();
 //        if(postId.getId() != null && likeServiceAll.size() > 0) {
 //            for(Like likeItem: likeServiceAll){
 //                int likeCount = likeItem.getLikeCount();
