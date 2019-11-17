@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// UserPost Controller
 @Controller
 @RequestMapping("/user/post")
 public class PostController {
