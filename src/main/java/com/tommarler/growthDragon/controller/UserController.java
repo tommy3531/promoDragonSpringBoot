@@ -1,6 +1,7 @@
 package com.tommarler.growthDragon.controller;
 
 import com.tommarler.growthDragon.domain.User;
+import com.tommarler.growthDragon.domain.UserPost;
 import com.tommarler.growthDragon.domain.UserProfile;
 import com.tommarler.growthDragon.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -27,7 +29,10 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    public UserPostService userPostService;
+    private UserPostService userPostService;
+
+    @Autowired
+    public PostService postService;
 
     @Autowired
     public CommentService commentService;
@@ -54,8 +59,13 @@ public class UserController {
         String newsFeedString = "/user/newsFeed";
         ModelAndView newsFeedView = new ModelAndView();
         User user = userService.findUserByEmail(principal.getName());
+        List<UserPost> userPosts = userPostService.findAll();
+        for(UserPost item: userPosts){
+            System.out.println(item.getPost());
+            System.out.println(item.getUser());
+        }
         newsFeedView = authService(newsFeedString);
-        newsFeedView.addObject("userpost", userPostService.findAll());
+        newsFeedView.addObject("userPosts", userPostService.findAll());
         newsFeedView.addObject("user", user);
         return newsFeedView;
     }

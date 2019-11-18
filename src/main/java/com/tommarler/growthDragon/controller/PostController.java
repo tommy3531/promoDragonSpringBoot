@@ -63,8 +63,6 @@ public class PostController {
         // PostLike
         List<UserLike> postLike = userLikeService.findAll();
 
-
-
         // Incrementer for post count
         int personLikeCount = 0;
         int increaseLikeCount = personLikeCount + 1;
@@ -87,36 +85,8 @@ public class PostController {
 
         User user = userService.findUserByEmail(principal.getName());
         List<UserLike> userLikeServiceAll = likeService.findAll();
-//        if(postId.getId() != null && likeServiceAll.size() > 0) {
-//            for(Like likeItem: likeServiceAll){
-//                int likeCount = likeItem.getLikeCount();
-//                if(likeCount == 0) {
-//                    return new RedirectView("/user/newsFeed");
-//                }
-//                int like = postCount - 1;
-//                System.out.println("Post and Like present, WOW");
-//                System.out.println("User who liked Post: " + likeItem.getUser().getId());
-//                System.out.println("Current Logged in user: " + user.getId());
-//                likeItem.setUser(user);
-//                likeItem.setLikeCount(like);
-//                postId.setLikeCount(like);
-//                postService.save(postId);
-//                likeService.save(likeItem);
-//                return new RedirectView("/user/newsFeed");
-//            }
-//
-//            return new RedirectView("/user/newsFeed");
-//        } else {
-//            int like = postCount - 1;
-//            Like likeData = new Like();
-//            likeData.setUser(user);
-//            likeData.setLikeCount(like);
-//            postId.setLikeCount(like);
-//            postService.save(postId);
-//            likeService.save(likeData);
-//            return new RedirectView("/user/newsFeed");
-//        }
-            return new RedirectView("/user/newsFeed");
+
+        return new RedirectView("/user/newsFeed");
 
 
     }
@@ -129,13 +99,11 @@ public class PostController {
         ModelAndView postFormView;
 
         User user = userService.findUserByEmail(principal.getName());
-        List<Post> posts = new ArrayList<>();
 
         if (user.isEnabled()) {
             // Create a new Post
             Post post = new Post();
             post.setCreatedDate(localDate);
-            posts.add(post);
 
             postFormView = authService(postFormString);
             postFormView.addObject("post", post);

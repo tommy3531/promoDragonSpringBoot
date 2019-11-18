@@ -18,13 +18,13 @@
                         <div class="clearfix"></div>
                         <hr class="margin-bottom-10">
                         <!--/* Loop through all the posts  */-->
-                        <ul class="list-group list-group-dividered list-group-full" th:each="userPost : ${post}">
+                        <ul class="list-group list-group-dividered list-group-full" th:each="userpost : ${userPosts}">
                             <li class="list-group-item">
                                 <div class="media">
                                     <div class="media-body">
-                                        <h4 class="media-heading" th:text="${post.user.fullname}"></h4>
-                                        <small class="text-muted pull-right" th:text="${post.createdDate}"></small>
-                                        <div th:text="${post.content}"></div>
+                                        <h4 class="media-heading" th:text="${userpost}"></h4>
+                                        <small class="text-muted pull-right" th:text="${userpost}"></small>
+                                        <div th:text="${userpost}"></div>
                                         <!--/* If a post exists */-->
 <!--                                        <div class="postExist" th:if="${postItem}">-->
 <!--                                            &lt;!&ndash;/* If post exists and logged in user created post */&ndash;&gt;-->
@@ -57,7 +57,6 @@
 <!--                                            </div>-->
                                         </div>
                                     </div>
-                                </div>
                             </li>
                         </ul>
                     </div>
