@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "post")
 public class Post {
@@ -14,13 +15,17 @@ public class Post {
     public String title;
     public String content;
     public String createdDate;
-    public Post() {}
+    public List<Post> posts;
 
-    public Post(String id, String title, String content, String createdDate) {
+    public Post() {
+    }
+
+    public Post(String id, String title, String content, String createdDate, List<Post> posts) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
+        this.posts = posts;
     }
 
     public String getId() {
@@ -53,5 +58,13 @@ public class Post {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

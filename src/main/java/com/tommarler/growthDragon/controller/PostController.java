@@ -135,6 +135,7 @@ public class PostController {
             // Create a new Post
             Post post = new Post();
             post.setCreatedDate(localDate);
+            posts.add(post);
 
             postFormView = authService(postFormString);
             postFormView.addObject("post", post);
@@ -147,11 +148,16 @@ public class PostController {
     }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)
-    public RedirectView createNewPost(@Valid Post post, BindingResult bindingResult) {
+    public RedirectView createNewPost(@Valid Post post, Principal principal, BindingResult bindingResult) {
+        User user = userService.findUserByEmail(principal.getName());
 
         if (bindingResult.hasErrors()) {
             return new RedirectView("/user/post/postForm");
         } else {
+            UserPost userPost = new UserPost();
+            userPost.setUser(user);
+            userPost.setPost(post);
+            userPostService.save(userPost);
             postService.save(post);
             return new RedirectView("/user/newsFeed");
         }
