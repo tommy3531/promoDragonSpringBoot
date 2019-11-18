@@ -11,17 +11,15 @@ public class UserPost {
     private String id;
     private User user;
     private Post post;
-    private ArrayList<User> users;
-    private ArrayList<Post> posts;
+    private ArrayList<UserPost> userPosts;
 
     public UserPost() {}
 
-    public UserPost(String id, User user, Post post, ArrayList<User> users, ArrayList<Post> posts) {
+    public UserPost(String id, User user, Post post, ArrayList<UserPost> userPosts) {
         this.id = id;
         this.user = user;
         this.post = post;
-        this.users = users;
-        this.posts = posts;
+        this.userPosts = userPosts;
     }
 
     public String getId() {
@@ -48,19 +46,11 @@ public class UserPost {
         this.post = post;
     }
 
-    public ArrayList<User> getUsers() {
-        return users;
+    public ArrayList<UserPost> getUserPosts() {
+        return userPosts;
     }
 
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
-    }
-
-    public ArrayList<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(ArrayList<Post> posts) {
-        this.posts = posts;
+    public void setUserPosts(ArrayList<UserPost> userPosts) {
+        this.userPosts = userPosts;
     }
 }

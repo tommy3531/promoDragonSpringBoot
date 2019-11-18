@@ -15,16 +15,12 @@ public class UserLike {
     public String id;
     public User user;
     public Post post;
-    public ArrayList<User> users;
-    public ArrayList<Post> posts;
 
     public UserLike() {}
 
-    public UserLike(User user, Post post, ArrayList<User> users, ArrayList<Post> posts) {
+    public UserLike(User user, Post post) {
         this.user = user;
         this.post = post;
-        this.users = users;
-        this.posts = posts;
     }
 
     public User getUser() {
@@ -41,21 +37,5 @@ public class UserLike {
 
     public void setPost(Post post) {
         this.post = post;
-    }
-
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
-    }
-
-    public ArrayList<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(ArrayList<Post> posts) {
-        this.posts = posts;
     }
 }

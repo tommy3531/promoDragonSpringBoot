@@ -3,10 +3,8 @@ package com.tommarler.growthDragon.controller;
 import com.tommarler.growthDragon.domain.UserLike;
 import com.tommarler.growthDragon.domain.Post;
 import com.tommarler.growthDragon.domain.User;
-import com.tommarler.growthDragon.service.LikeService;
-import com.tommarler.growthDragon.service.UserLikeService;
-import com.tommarler.growthDragon.service.PostService;
-import com.tommarler.growthDragon.service.UserService;
+import com.tommarler.growthDragon.domain.UserPost;
+import com.tommarler.growthDragon.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,6 +32,9 @@ public class PostController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserPostService userPostService;
 
     @Autowired
     private PostService postService;
@@ -122,22 +123,21 @@ public class PostController {
 
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
     public ModelAndView newPost(Principal principal, Model model) {
+        String localDate = generateDate();
+
         String postFormString = "/user/post/postForm";
         ModelAndView postFormView;
 
         User user = userService.findUserByEmail(principal.getName());
-        ArrayList<Post> posts = new ArrayList<>();
+        List<Post> posts = new ArrayList<>();
 
         if (user.isEnabled()) {
+            // Create a new Post
             Post post = new Post();
-            posts.add(post);
-//            post.setUser(user);
-
-            String localDate = generateDate();
             post.setCreatedDate(localDate);
+
             postFormView = authService(postFormString);
             postFormView.addObject("post", post);
-            userService.saveUser(user);
             return postFormView;
         } else {
             ModelAndView modelAndView = new ModelAndView();

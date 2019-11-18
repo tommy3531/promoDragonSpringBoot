@@ -27,7 +27,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    public PostService postService;
+    public UserPostService userPostService;
 
     @Autowired
     public CommentService commentService;
@@ -55,10 +55,8 @@ public class UserController {
         ModelAndView newsFeedView = new ModelAndView();
         User user = userService.findUserByEmail(principal.getName());
         newsFeedView = authService(newsFeedString);
-        newsFeedView.addObject("post", postService.findAll());
-        newsFeedView.addObject("comment", commentService.findAll());
+        newsFeedView.addObject("userpost", userPostService.findAll());
         newsFeedView.addObject("user", user);
-        newsFeedView.addObject("like", likeService.findLikeByUser(user));
         return newsFeedView;
     }
 

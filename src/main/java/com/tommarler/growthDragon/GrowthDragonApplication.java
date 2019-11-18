@@ -14,7 +14,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 public class GrowthDragonApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(GrowthDragonApplication.class, args);
 	}
 
