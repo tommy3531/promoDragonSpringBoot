@@ -22,9 +22,9 @@
                             <li class="list-group-item">
                                 <div class="media">
                                     <div class="media-body">
-                                        <h4 class="media-heading" th:text="${userpost}"></h4>
-                                        <small class="text-muted pull-right" th:text="${userpost}"></small>
-                                        <div th:text="${userpost}"></div>
+                                        <h4 class="media-heading" th:text="${userpost.post.title}"></h4>
+                                        <small class="text-muted pull-right" th:text="${userpost.post.content}"></small>
+                                        <div th:text="${userpost.user.fullname}"></div>
                                         <!--/* If a post exists */-->
 <!--                                        <div class="postExist" th:if="${postItem}">-->
 <!--                                            &lt;!&ndash;/* If post exists and logged in user created post */&ndash;&gt;-->

@@ -20,6 +20,7 @@ public class User {
     public String password;
     public String fullname;
     public boolean enabled;
+    @DBRef
     public Set<Role> roles;
 
     public User(String id, String email, String password, String fullname, boolean enabled, Set<Role> roles) {
