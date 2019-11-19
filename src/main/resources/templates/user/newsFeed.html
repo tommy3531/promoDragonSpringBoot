@@ -20,43 +20,15 @@
                         <!--/* Loop through all the posts  */-->
                         <ul class="list-group list-group-dividered list-group-full" th:each="userpost : ${userPosts}">
                             <li class="list-group-item">
-                                <div class="media">
-                                    <div class="media-body">
-                                        <h4 class="media-heading" th:text="${userpost.post.title}"></h4>
-                                        <small class="text-muted pull-right" th:text="${userpost.post.content}"></small>
-                                        <div th:text="${userpost.user.fullname}"></div>
-                                        <!--/* If a post exists */-->
-<!--                                        <div class="postExist" th:if="${postItem}">-->
-<!--                                            &lt;!&ndash;/* If post exists and logged in user created post */&ndash;&gt;-->
-<!--                                            <div class="postExistAndBelongsToUser" th:if="${postItem.user.id == user.id}">-->
-<!--                                            </div>-->
-<!--                                            <div class="postExistAndBelongsToUser" th:if="${postItem.user.id != user.id}">-->
-<!--                                                <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2">-->
-<!--                                                    <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'likeTop   +'}">likeTop</button>-->
-<!--                                                </a>-->
-<!--                                            </div>-->
-                                            <!--/* Loop through post likes */-->
-<!--                                            <div class="likeMainContainer" th:each="postLike : ${postItem.likes}">-->
-<!--                                                &lt;!&ndash;/*  If like exists */&ndash;&gt;-->
-<!--                                                <div class="likeExist" th:if="${postLike}">-->
-<!--                                                    &lt;!&ndash;/* If post was not created by logged in user and like Count is zero */&ndash;&gt;-->
-<!--                                                    <div class="likeExistUserAndLikeCountZero" th:if="${postLike.user.id != like.user.id}">-->
-<!--                                                        <div class="userOwnsLike" th:if="${postLike.user.id == user.id}">-->
-<!--                                                            &lt;!&ndash; Like belongs to user and like count is greater then 0 show dislike */&ndash;&gt;-->
-<!--                                                            <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2">-->
-<!--                                                                <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'DisLikeE   +'}">DisLikeE</button>-->
-<!--                                                            </a>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="userDoesNotOwnLike" th:unless="${postLike.user.id == like.user.id}">-->
-<!--                                                            <a th:href="@{'/user/post/dislike/{id}'(id=${postItem.id})}" class="col-md-2">-->
-<!--                                                                <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'like   +'}">like</button>-->
-<!--                                                            </a>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-                                        </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading" th:text="${userpost.post.title}"></h4>
+                                    <small class="text-muted pull-right" th:text="${userpost.post.content}"></small>
+                                    <div class="userDoesNotOwnLike">
+                                        <a th:href="@{'/user/post/dislike/{id}'(id=${userpost.post.id})}" class="col-md-2">
+                                            <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'like   +'}">like</button>
+                                        </a>
                                     </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
