@@ -1,5 +1,7 @@
 package com.tommarler.growthDragon.service.Impl;
 
+import com.tommarler.growthDragon.domain.Post;
+import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.domain.UserPost;
 import com.tommarler.growthDragon.repository.UserPostRepository;
 import com.tommarler.growthDragon.service.UserPostService;
@@ -22,6 +24,12 @@ public class UserPostServiceImp implements UserPostService {
     @Override
     public List<UserPost> findAll() {
         return userPostRepository.findAll();
+    }
+
+    @Override
+    public List<Post> findByUser(User user) {
+        List<Post> posts = userPostRepository.findUserPostByUser(user);
+        return posts;
     }
 
     @Override

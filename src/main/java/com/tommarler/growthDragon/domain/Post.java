@@ -12,20 +12,20 @@ public class Post {
 
     @Id
     public String id;
+    public int userPostId;
     public String title;
     public String content;
     public String createdDate;
-    public List<Post> posts;
 
     public Post() {
     }
 
-    public Post(String id, String title, String content, String createdDate, List<Post> posts) {
+    public Post(String id, int userPostId, String title, String content, String createdDate) {
         this.id = id;
+        this.userPostId = userPostId;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
-        this.posts = posts;
     }
 
     public String getId() {
@@ -34,6 +34,14 @@ public class Post {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getUserPostId() {
+        return userPostId;
+    }
+
+    public void setUserPostId(int userPostId) {
+        this.userPostId = userPostId;
     }
 
     public String getTitle() {
@@ -58,13 +66,5 @@ public class Post {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
     }
 }

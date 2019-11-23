@@ -64,13 +64,6 @@ public class UserController {
         newsFeedView = authService(newsFeedString);
         newsFeedView.addObject("userPosts", userPostService.findAll());
         List<UserPost> userPosts = userPostService.findAll();
-        for(UserPost item: userPosts){
-            System.out.println(item.getUser());
-            Post post= item.getPost();
-            System.out.println(post.title);
-            System.out.println(post.content);
-            System.out.println(post.createdDate);
-        }
         newsFeedView.addObject("user", user);
         return newsFeedView;
     }

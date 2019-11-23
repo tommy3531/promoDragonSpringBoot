@@ -24,7 +24,7 @@
                                     <h4 class="media-heading" th:text="${userpost.post.title}"></h4>
                                     <small class="text-muted pull-right" th:text="${userpost.post.content}"></small>
                                     <div class="userDoesNotOwnLike">
-                                        <a th:href="@{'/user/post/dislike/{id}'(id=${userpost.post.id})}" class="col-md-2">
+                                        <a th:href="@{'/user/post/dislike/{id}'(id=${userpost.post})}" class="col-md-2">
                                             <button type="button" class="btn btn-info btn-sm pull-left waves-effect waves-light" th:text="${'like   +'}">like</button>
                                         </a>
                                     </div>

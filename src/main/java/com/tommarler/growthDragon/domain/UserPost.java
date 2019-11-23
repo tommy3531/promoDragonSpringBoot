@@ -1,40 +1,45 @@
 package com.tommarler.growthDragon.domain;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // The user who created a post
 public class UserPost {
 
     @Id
-    private String id;
-    private User user;
-    private Post post;
+    public ObjectId id;
+    public int postId;
+    public Post post;
+    public User user;
+
 
     public UserPost() {}
 
-    public UserPost(String id, User user, Post post) {
+    public UserPost(ObjectId id, int postId, Post post, User user) {
         this.id = id;
-        this.user = user;
+        this.postId = postId;
         this.post = post;
-
+        this.user = user;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public Post getPost() {
@@ -43,5 +48,13 @@ public class UserPost {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
