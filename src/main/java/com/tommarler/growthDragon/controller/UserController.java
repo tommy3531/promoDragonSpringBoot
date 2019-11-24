@@ -60,11 +60,13 @@ public class UserController {
         String newsFeedString = "/user/newsFeed";
         ModelAndView newsFeedView = new ModelAndView();
         User user = userService.findUserByEmail(principal.getName());
+        List<Post> posts = postService.findAll();
 
         newsFeedView = authService(newsFeedString);
         newsFeedView.addObject("userPosts", userPostService.findAll());
         List<UserPost> userPosts = userPostService.findAll();
         newsFeedView.addObject("user", user);
+        newsFeedView.addObject("posts", posts);
         return newsFeedView;
     }
 

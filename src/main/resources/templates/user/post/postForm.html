@@ -16,7 +16,7 @@
         <div class="row" style="margin-top:20px">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <form autocomplete="off" action="#" th:action="@{/user/post/newPost}"
-                      th:object="${post}" method="post" class="form-horizontal"
+                      th:object="${posts}" method="post" class="form-horizontal"
                       role="form">
 
                     <h2 class="text-center">Write new post</h2>
@@ -28,6 +28,8 @@
                         <p>Message: <input type="text" th:field="*{content}" /></p>
                         <input type="hidden" th:field="*{createdDate}"/>
                     </div>
+                    <input type="hidden" th:field="*{userPostId}"/>
+
 
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary btn-block" value="Save"/>

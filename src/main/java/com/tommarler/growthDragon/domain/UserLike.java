@@ -13,29 +13,38 @@ public class UserLike {
 
     @Id
     public String id;
-    public User user;
-    public Post post;
+    public UserPost userPost;
+    public boolean linkedToPost;
 
     public UserLike() {}
 
-    public UserLike(User user, Post post) {
-        this.user = user;
-        this.post = post;
+    public UserLike(String id, UserPost userPost, boolean linkedToPost) {
+        this.id = id;
+        this.userPost = userPost;
+        this.linkedToPost = linkedToPost;
     }
 
-    public User getUser() {
-        return user;
+    public String getId() {
+        return id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Post getPost() {
-        return post;
+    public UserPost getUserPost() {
+        return userPost;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setUserPost(UserPost userPost) {
+        this.userPost = userPost;
+    }
+
+    public boolean isLinkedToPost() {
+        return linkedToPost;
+    }
+
+    public void setLinkedToPost(boolean linkedToPost) {
+        this.linkedToPost = linkedToPost;
     }
 }

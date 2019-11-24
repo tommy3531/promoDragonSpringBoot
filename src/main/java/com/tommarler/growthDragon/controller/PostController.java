@@ -1,8 +1,8 @@
 package com.tommarler.growthDragon.controller;
 
-import com.tommarler.growthDragon.domain.UserLike;
 import com.tommarler.growthDragon.domain.Post;
 import com.tommarler.growthDragon.domain.User;
+import com.tommarler.growthDragon.domain.UserLike;
 import com.tommarler.growthDragon.domain.UserPost;
 import com.tommarler.growthDragon.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.security.Principal;
+import java.security.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 // UserPost Controller
 @Controller
@@ -74,14 +75,12 @@ public class PostController {
         ArrayList<UserLike> userLikes = new ArrayList<>();
         ArrayList<Post> posts = new ArrayList<>();
         return new RedirectView("/user/newsFeed");
-
     }
 
 
     @RequestMapping(value = "/dislike/{id}", method = RequestMethod.GET)
     public RedirectView postUnLike(@PathVariable("id") String id, Principal principal, Model model ) {
         Optional<Post> post = postService.findForId(id);
-        Post postId = post.get();
 
         User user = userService.findUserByEmail(principal.getName());
         List<UserLike> userLikeServiceAll = likeService.findAll();
@@ -90,7 +89,7 @@ public class PostController {
     }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
-    public ModelAndView newPost(Principal principal, Model model) {
+    public ModelAndView newPost(Principal principal, Model model) throws NoSuchProviderException, NoSuchAlgorithmException {
         String localDate = generateDate();
 
         String postFormString = "/user/post/postForm";
@@ -99,12 +98,15 @@ public class PostController {
         User user = userService.findUserByEmail(principal.getName());
 
         if (user.isEnabled()) {
+
             // Create a new Post
             Post post = new Post();
             post.setCreatedDate(localDate);
+            int number = secureRandomNumber();
+            post.setUserPostId(number);
 
             postFormView = authService(postFormString);
-            postFormView.addObject("post", post);
+            postFormView.addObject("posts", post);
             return postFormView;
         } else {
             ModelAndView modelAndView = new ModelAndView();
@@ -114,7 +116,7 @@ public class PostController {
     }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)
-    public RedirectView createNewPost(@Valid Post post, Principal principal, BindingResult bindingResult) {
+    public RedirectView createNewPost(@Valid Post post, Principal principal, BindingResult bindingResult) throws NoSuchProviderException, NoSuchAlgorithmException {
         User user = userService.findUserByEmail(principal.getName());
         List<Post> posts = userPostService.findByUser(user);
         List<Post> postList = new ArrayList<>();
@@ -124,6 +126,8 @@ public class PostController {
             return new RedirectView("/user/post/postForm");
         } else {
 
+
+            userPost.setUserPostId(post.getUserPostId());
             userPost.setPost(post);
             userPost.setUser(user);
             userPostService.save(userPost);
@@ -151,6 +155,12 @@ public class PostController {
         LocalDate localDate = LocalDate.now();
         String dateStr = dtf.format(localDate);
         return dateStr;
+    }
+
+    private int secureRandomNumber() {
+        Random rand = new Random(System.currentTimeMillis());
+        int r = rand.nextInt();
+        return r;
     }
 
 }
