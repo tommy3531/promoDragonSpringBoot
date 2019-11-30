@@ -64,7 +64,7 @@ public class PostController {
         Post postData = post.get();
 
         // Check if post is linked to like
-        if(!postData.getLinkedToUserLike()){
+        if(postData.getLinkedToUserLike()){
             // check if current user liked the post
             UserLike userLikeByUser = userLikeService.findUserLikeByUserId(user.getId());
             System.out.println("User like" + userLikeByUser.getUser());
@@ -159,7 +159,7 @@ public class PostController {
             return new RedirectView("/user/post/postForm");
         } else {
 
-
+            post.setLinkedToUserPost(true);
             userPost.setUserPostId(post.getUserPostId());
             userPost.setPost(post);
             userPost.setUser(user);
