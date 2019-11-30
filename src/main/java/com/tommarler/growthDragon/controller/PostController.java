@@ -56,10 +56,45 @@ public class PostController {
 
     @RequestMapping(value = "/like/{id}", method = RequestMethod.GET)
     public RedirectView postLike(@PathVariable("id") String id, Principal principal, Model model ) {
+        System.out.println("This is the post Id: " + id);
+        User user = userService.findUserByEmail(principal.getName());
 
-        // Post knows about likes
+        // Find post from ID
         Optional<Post> post = postService.findForId(id);
         Post postData = post.get();
+
+        // Check if post is linked to like
+        if(!postData.getLinkedToUserLike()){
+            // check if current user liked the post
+            UserLike userLikeByUser = userLikeService.findUserLikeByUserId(user.getId());
+            System.out.println("User like" + userLikeByUser.getUser());
+            System.out.println("Logged in user: " + user);
+            System.out.println("END");
+            if(userLikeByUser.getUser().equals(user)){
+                System.out.println("User can not like their own post: " + user.getFullname());
+            } else {
+                System.out.println("User can like this post: " + user.getFullname());
+                System.out.println("END");
+            }
+        } else {
+            // Create userLike
+            UserLike userLike = new UserLike();
+            UserPost userPost = userPostService.findUserPostByUser(user);
+            userLike.setUserPost(userPost);
+            userLike.setUser(user);
+            userLike.setPostId(postData.getUserPostId());
+            userLike.setLinkedToPost(true);
+            UserPost userPostLike = userLike.getUserPost();
+            Post post1 = userPostLike.getPost();
+            post1.setUserLikeId(userLike.getPostId());
+            post1.setLinkedToUserLike(true);
+            post1.setLinkedToUserPost(true);
+            userLikeService.save(userLike);
+            System.out.println("Saved userLike: ");
+
+
+        }
+
 
         // PostLike
         List<UserLike> postLike = userLikeService.findAll();
@@ -67,10 +102,6 @@ public class PostController {
         // Incrementer for post count
         int personLikeCount = 0;
         int increaseLikeCount = personLikeCount + 1;
-
-        // Need to get a user
-        User user = userService.findUserByEmail(principal.getName());
-
         // holder for post likes
         ArrayList<UserLike> userLikes = new ArrayList<>();
         ArrayList<Post> posts = new ArrayList<>();
@@ -80,6 +111,8 @@ public class PostController {
 
     @RequestMapping(value = "/dislike/{id}", method = RequestMethod.GET)
     public RedirectView postUnLike(@PathVariable("id") String id, Principal principal, Model model ) {
+        System.out.println("This is the post Id: " + id);
+
         Optional<Post> post = postService.findForId(id);
 
         User user = userService.findUserByEmail(principal.getName());

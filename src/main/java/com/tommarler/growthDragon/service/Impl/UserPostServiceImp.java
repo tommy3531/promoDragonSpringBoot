@@ -28,8 +28,19 @@ public class UserPostServiceImp implements UserPostService {
 
     @Override
     public List<Post> findByUser(User user) {
-        List<Post> posts = userPostRepository.findUserPostByUser(user);
-        return posts;
+        return null;
+    }
+
+    @Override
+    public UserPost findUserPostByUser(User user) {
+        return userPostRepository.findUserPostByUser(user);
+    }
+
+    @Override
+    public UserPost findUserPostByUserPostId(int userPostId) {
+        UserPost userPost = userPostRepository.findUserPostByUserPostId(userPostId);
+        System.out.println(userPost);
+        return userPost;
     }
 
     @Override

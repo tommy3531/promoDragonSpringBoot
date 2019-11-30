@@ -14,7 +14,9 @@ public class Post {
     public String id;
     public int postId;
     public int userPostId;
-    public boolean LinkedToUserPost;
+    public int userLikeId;
+    public boolean linkedToUserLike;
+    public boolean linkedToUserPost;
     public String title;
     public String content;
     public String createdDate;
@@ -22,12 +24,13 @@ public class Post {
     public Post() {
     }
 
-
-    public Post(String id, int postId, int userPostId, boolean linkedToUserPost, String title, String content, String createdDate) {
+    public Post(String id, int postId, int userPostId, int userLikeId, boolean linkedToUserLike, boolean linkedToUserPost, String title, String content, String createdDate) {
         this.id = id;
         this.postId = postId;
         this.userPostId = userPostId;
-        LinkedToUserPost = linkedToUserPost;
+        this.userLikeId = userLikeId;
+        this.linkedToUserLike = linkedToUserLike;
+        this.linkedToUserPost = linkedToUserPost;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
@@ -57,12 +60,28 @@ public class Post {
         this.userPostId = userPostId;
     }
 
+    public int getUserLikeId() {
+        return userLikeId;
+    }
+
+    public void setUserLikeId(int userLikeId) {
+        this.userLikeId = userLikeId;
+    }
+
+    public boolean getLinkedToUserLike() {
+        return linkedToUserLike;
+    }
+
+    public void setLinkedToUserLike(boolean linkedToUserLike) {
+        this.linkedToUserLike = linkedToUserLike;
+    }
+
     public boolean isLinkedToUserPost() {
-        return LinkedToUserPost;
+        return linkedToUserPost;
     }
 
     public void setLinkedToUserPost(boolean linkedToUserPost) {
-        LinkedToUserPost = linkedToUserPost;
+        this.linkedToUserPost = linkedToUserPost;
     }
 
     public String getTitle() {

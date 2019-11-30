@@ -61,6 +61,11 @@ public class UserController {
         ModelAndView newsFeedView = new ModelAndView();
         User user = userService.findUserByEmail(principal.getName());
         List<Post> posts = postService.findAll();
+        for(Post item: posts){
+            int userPostId = item.getUserPostId();
+//            System.out.print("Posts that were written by user: " + userPost);
+            System.out.println(userPostId);
+        }
 
         newsFeedView = authService(newsFeedString);
         newsFeedView.addObject("userPosts", userPostService.findAll());

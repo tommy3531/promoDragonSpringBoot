@@ -1,5 +1,6 @@
 package com.tommarler.growthDragon.service.Impl;
 
+import com.tommarler.growthDragon.domain.User;
 import com.tommarler.growthDragon.domain.UserLike;
 import com.tommarler.growthDragon.repository.UserLikeRepository;
 import com.tommarler.growthDragon.service.UserLikeService;
@@ -22,5 +23,11 @@ public class UserLikeServiceImp implements UserLikeService {
     @Override
     public UserLike save(UserLike userLike) {
         return userLikeRepository.save(userLike);
+    }
+
+    @Override
+    public UserLike findUserLikeByUserId(String userId) {
+        UserLike userLikeByUser = userLikeRepository.findUserLikeByUserId(userId);
+        return userLikeByUser;
     }
 }

@@ -8,5 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface UserPostRepository extends MongoRepository<UserPost, String> {
-    List<Post> findUserPostByUser(User user);
+    UserPost findUserPostByUser(User user);
+    UserPost findUserPostByUserPostId(int userPostId);
 }

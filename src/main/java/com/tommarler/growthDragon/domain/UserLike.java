@@ -13,13 +13,17 @@ public class UserLike {
 
     @Id
     public String id;
+    public int postId;
+    public User user;
     public UserPost userPost;
     public boolean linkedToPost;
 
     public UserLike() {}
 
-    public UserLike(String id, UserPost userPost, boolean linkedToPost) {
+    public UserLike(String id, int postId, User user, UserPost userPost, boolean linkedToPost) {
         this.id = id;
+        this.postId = postId;
+        this.user = user;
         this.userPost = userPost;
         this.linkedToPost = linkedToPost;
     }
@@ -30,6 +34,22 @@ public class UserLike {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public UserPost getUserPost() {
