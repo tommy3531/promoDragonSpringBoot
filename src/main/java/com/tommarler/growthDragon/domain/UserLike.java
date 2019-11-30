@@ -17,15 +17,17 @@ public class UserLike {
     public User user;
     public UserPost userPost;
     public boolean linkedToPost;
+    public boolean isLiked;
 
     public UserLike() {}
 
-    public UserLike(String id, int postId, User user, UserPost userPost, boolean linkedToPost) {
+    public UserLike(String id, int postId, User user, UserPost userPost, boolean linkedToPost, boolean isLiked) {
         this.id = id;
         this.postId = postId;
         this.user = user;
         this.userPost = userPost;
         this.linkedToPost = linkedToPost;
+        this.isLiked = isLiked;
     }
 
     public String getId() {
@@ -60,11 +62,19 @@ public class UserLike {
         this.userPost = userPost;
     }
 
-    public boolean isLinkedToPost() {
+    public boolean getIsLinkedToPost() {
         return linkedToPost;
     }
 
     public void setLinkedToPost(boolean linkedToPost) {
         this.linkedToPost = linkedToPost;
+    }
+
+    public boolean getIsLiked() {
+        return isLiked;
+    }
+
+    public void setIsLiked(boolean liked) {
+        isLiked = liked;
     }
 }

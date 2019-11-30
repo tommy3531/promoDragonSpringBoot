@@ -58,19 +58,23 @@ public class PostController {
     public RedirectView postLike(@PathVariable("id") String id, Principal principal, Model model ) {
         System.out.println("This is the post Id: " + id);
         User user = userService.findUserByEmail(principal.getName());
-
-        // Find post from ID
         Optional<Post> post = postService.findForId(id);
         Post postData = post.get();
+        UserPost userPost = userPostService.findUserPostByUserPostId(postData.getUserPostId());
 
+        // Find post from ID
+        UserLike userLikeByUser = userLikeService.findUserLikeByUserId(user.getId());
+        System.out.println("END");
         // Check if post is linked to like
-        if(postData.getLinkedToUserLike()){
+        if(userLikeByUser != null){
             // check if current user liked the post
-            UserLike userLikeByUser = userLikeService.findUserLikeByUserId(user.getId());
-            System.out.println("User like" + userLikeByUser.getUser());
-            System.out.println("Logged in user: " + user);
+            System.out.println("User like" + userLikeByUser.getUser().getId());
+            System.out.println("Logged in user: " + user.getId());
             System.out.println("END");
-            if(userLikeByUser.getUser().equals(user)){
+
+            if(userLikeByUser.getUser().getId().equals(user.id)){
+                userLikeByUser.setIsLiked(true);
+                userLikeByUser.setUserPost(userPost);
                 System.out.println("User can not like their own post: " + user.getFullname());
             } else {
                 System.out.println("User can like this post: " + user.getFullname());
@@ -79,11 +83,12 @@ public class PostController {
         } else {
             // Create userLike
             UserLike userLike = new UserLike();
-            UserPost userPost = userPostService.findUserPostByUser(user);
-            userLike.setUserPost(userPost);
+            UserPost userPost2 = userPostService.findUserPostByUser(user);
+            userLike.setUserPost(userPost2);
             userLike.setUser(user);
             userLike.setPostId(postData.getUserPostId());
             userLike.setLinkedToPost(true);
+            userLike.setIsLiked(true);
             UserPost userPostLike = userLike.getUserPost();
             Post post1 = userPostLike.getPost();
             post1.setUserLikeId(userLike.getPostId());
