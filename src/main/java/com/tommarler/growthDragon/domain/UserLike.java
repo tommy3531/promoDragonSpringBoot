@@ -15,17 +15,18 @@ public class UserLike {
     public String id;
     public int postId;
     public User user;
-    public UserPost userPost;
+    public Post post;
     public boolean linkedToPost;
     public boolean isLiked;
 
-    public UserLike() {}
+    public UserLike() {
+    }
 
-    public UserLike(String id, int postId, User user, UserPost userPost, boolean linkedToPost, boolean isLiked) {
+    public UserLike(String id, int postId, User user, Post post, boolean linkedToPost, boolean isLiked) {
         this.id = id;
         this.postId = postId;
         this.user = user;
-        this.userPost = userPost;
+        this.post = post;
         this.linkedToPost = linkedToPost;
         this.isLiked = isLiked;
     }
@@ -54,15 +55,15 @@ public class UserLike {
         this.user = user;
     }
 
-    public UserPost getUserPost() {
-        return userPost;
+    public Post getPost() {
+        return post;
     }
 
-    public void setUserPost(UserPost userPost) {
-        this.userPost = userPost;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
-    public boolean getIsLinkedToPost() {
+    public boolean isLinkedToPost() {
         return linkedToPost;
     }
 
@@ -70,11 +71,11 @@ public class UserLike {
         this.linkedToPost = linkedToPost;
     }
 
-    public boolean getIsLiked() {
+    public boolean isLiked() {
         return isLiked;
     }
 
-    public void setIsLiked(boolean liked) {
+    public void setLiked(boolean liked) {
         isLiked = liked;
     }
 }

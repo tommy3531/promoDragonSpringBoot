@@ -73,31 +73,19 @@ public class PostController {
             System.out.println("END");
 
             if(userLikeByUser.getUser().getId().equals(user.id)){
-                userLikeByUser.setIsLiked(true);
-                userLikeByUser.setUserPost(userPost);
-                System.out.println("User can not like their own post: " + user.getFullname());
+                System.out.println("User has already liked the post: " + user.getFullname());
             } else {
-                System.out.println("User can like this post: " + user.getFullname());
+                System.out.println("User has not liked post: " + user.getFullname());
                 System.out.println("END");
             }
         } else {
             // Create userLike
             UserLike userLike = new UserLike();
-            UserPost userPost2 = userPostService.findUserPostByUser(user);
-            userLike.setUserPost(userPost2);
             userLike.setUser(user);
             userLike.setPostId(postData.getUserPostId());
             userLike.setLinkedToPost(true);
-            userLike.setIsLiked(true);
-            UserPost userPostLike = userLike.getUserPost();
-            Post post1 = userPostLike.getPost();
-            post1.setUserLikeId(userLike.getPostId());
-            post1.setLinkedToUserLike(true);
-            post1.setLinkedToUserPost(true);
             userLikeService.save(userLike);
             System.out.println("Saved userLike: ");
-
-
         }
 
 
